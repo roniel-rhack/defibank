@@ -89,6 +89,134 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/borderCenter">
 
+        <TextView
+            android:id="@+id/importe_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="$ 1580.00"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.80"
+            app:layout_constraintStart_toEndOf="@+id/importe_product_label"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/importe_product_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="Importe de la compra:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/importe_envio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="$ 150.00"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.80"
+            app:layout_constraintStart_toEndOf="@+id/importe_product_label"
+            app:layout_constraintTop_toBottomOf="@+id/importe_product"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/importe_envio_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="Precio del envio:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/importe_product_label"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/importe_comision"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="$ 10.00"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.80"
+            app:layout_constraintStart_toEndOf="@+id/importe_product_label"
+            app:layout_constraintTop_toBottomOf="@+id/importe_envio"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/importe_comision_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="Comisión del vendedor:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/importe_envio_label"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/importe_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="$ 1740.00"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.80"
+            app:layout_constraintStart_toEndOf="@+id/importe_product_label"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/importe_total_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="IMPORTE TOTAL:"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            tools:ignore="HardcodedText" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/importe_comision_label" />
+
         <Button
             android:id="@+id/btnSend"
             style="@style/Widget.AppCompat.Button.Colored"
@@ -106,6 +234,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/importe_total_label"
+            app:layout_constraintVertical_bias="0.977"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -123,9 +253,9 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="HardcodedText" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
