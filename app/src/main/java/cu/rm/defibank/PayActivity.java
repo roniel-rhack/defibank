@@ -1,7 +1,6 @@
 package cu.rm.defibank;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,10 +28,11 @@ import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.VolleyQueue;
 
 public class PayActivity extends CustomActivityFullAnimated {
-    Button bntSend, btnCancel;
+    Button bntSend, btnCancel, btnChange;
     ProgressBar loading, loading_global;
     TextView pay, shipment, tax, card_to, card_manage, total_to_pay;
     String transaction_id, token, email;
+    Double payNo, shipmentNo, taxNo, totalPayNo;
 
 
     @Override
@@ -53,6 +53,7 @@ public class PayActivity extends CustomActivityFullAnimated {
     protected void setOnClickListeners() {
         bntSend.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+        btnChange.setOnClickListener(this);
 
     }
 
@@ -69,31 +70,44 @@ public class PayActivity extends CustomActivityFullAnimated {
         card_manage = findViewById(R.id.card_manage);
         total_to_pay = findViewById(R.id.importe_total);
         loading_global = findViewById(R.id.progressBar_global);
+        btnChange = findViewById(R.id.btnChange);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case (R.id.btnSend):
-            {
+        switch (v.getId()) {
+            case (R.id.btnSend): {
                 registerPayment(transaction_id, email, token);
                 break;
             }
-            case (R.id.btnCancel):
-            {
+            case (R.id.btnCancel): {
                 cancelPayment(transaction_id, token);
+                break;
+            }
+            case (R.id.btnChange): {
+                if (btnChange.getText().equals("Cambiar a CUC")){
+                    pay.setText(payNo / 25 + "");
+                    shipment.setText(shipmentNo / 25 + "");
+                    tax.setText(taxNo / 25 + "");
+                    total_to_pay.setText(totalPayNo / 25 + "");
+                }else{
+                    pay.setText(payNo  + "");
+                    shipment.setText(shipmentNo  + "");
+                    tax.setText(taxNo  + "");
+                    total_to_pay.setText(totalPayNo  + "");
+                }
+
                 break;
             }
         }
     }
 
 
-    public  void getPayment(final String transaction_id, final String token){
+    public void getPayment(final String transaction_id, final String token) {
         String url = String.format("https://josue95.pythonanywhere.com/api/dev/get_payment/?transaction_id=%s", transaction_id);
         Log.d("init", "iniciando el metodo get_payment");
         StringRequest getRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
@@ -101,21 +115,22 @@ public class PayActivity extends CustomActivityFullAnimated {
                             JSONObject json = new JSONObject(response);
                             Log.d("Response json:", json.toString());
 
-                            if (json.getString("status").equals("1001")){
+                            if (json.getString("status").equals("1001")) {
                                 pay.setText(json.getString("pay"));
                                 shipment.setText(json.getString("shipment"));
                                 tax.setText(json.getString("tax"));
                                 card_to.setText(json.getString("card_to"));
                                 card_manage.setText(json.has("card_manage") ? json.getString("card_manage") : "-");
-                                double a= json.getDouble("pay");
-                                double b=json.getDouble("shipment");
-                                double c = json.getDouble("tax");
-                                total_to_pay.setText(a+b+c+"");
+                                payNo = json.getDouble("pay");
+                                shipmentNo = json.getDouble("shipment");
+                                taxNo = json.getDouble("tax");
+                                totalPayNo = payNo + shipmentNo + taxNo;
+                                total_to_pay.setText(totalPayNo + "");
                                 container.setVisibility(View.VISIBLE);
                                 loading_global.setVisibility(View.INVISIBLE);
 
 
-                            }else if (json.getString("status").equals("1002")){
+                            } else if (json.getString("status").equals("1002")) {
                                 Toast.makeText(getApplicationContext(), "El registro falló, intente más tarde.",
                                         Toast.LENGTH_SHORT)
                                         .show();
@@ -129,8 +144,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                         Log.d("Response", response);
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -138,8 +152,8 @@ public class PayActivity extends CustomActivityFullAnimated {
 
                     }
                 }
-        ){
-//            @Override
+        ) {
+            //            @Override
 //            protected Map<String, String> getParams()
 //            {
 //                Map<String, String>  params = new HashMap<String, String>();
@@ -148,9 +162,9 @@ public class PayActivity extends CustomActivityFullAnimated {
 //            }
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "x-www-form-urlencoded");
-                params.put("Authorization", "Bearer "+token);
+                params.put("Authorization", "Bearer " + token);
 
                 return params;
             }
@@ -159,16 +173,15 @@ public class PayActivity extends CustomActivityFullAnimated {
         VolleyQueue.getInstance().addToQueue(getRequest);
     }
 
-    private void makeTransfers(){
+    private void makeTransfers() {
 
     }
 
-    public  void registerPayment(final String transaction_id, final String email, final String token){
+    public void registerPayment(final String transaction_id, final String email, final String token) {
         String url = "https://josue95.pythonanywhere.com/api/dev/payment/";
         Log.d("init", "iniciando el metodo register_payment");
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
@@ -176,7 +189,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                             JSONObject json = new JSONObject(response);
                             Log.d("Response json:", json.toString());
 
-                            if (json.getString("status").equals("1001")){
+                            if (json.getString("status").equals("1001")) {
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(PayActivity.this);
 
                                 builder2.setMessage(String.format("El pago se ha registrado correctamente. TRANSACTION_ID: %s", json.getString("transaction_id")))
@@ -187,8 +200,8 @@ public class PayActivity extends CustomActivityFullAnimated {
                                         finish();
                                     }
                                 });
-                                builder2.setNegativeButton("Ir al listado", new DialogInterface.OnClickListener(){
-                                    public void onClick(DialogInterface dialog, int id){
+                                builder2.setNegativeButton("Ir al listado", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
                                         // TODO: enviar al usuario a la activity de listado
                                     }
                                 });
@@ -196,7 +209,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                                 AlertDialog dialog2 = builder2.create();
                                 dialog2.show();
 
-                            }else if (json.getString("status").equals("1002")){
+                            } else if (json.getString("status").equals("1002")) {
                                 Toast.makeText(getApplicationContext(), "El registro falló, intente más tarde.",
                                         Toast.LENGTH_SHORT)
                                         .show();
@@ -210,8 +223,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                         Log.d("Response", response);
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -219,20 +231,20 @@ public class PayActivity extends CustomActivityFullAnimated {
 
                     }
                 }
-        ){
+        ) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("transaction_id", transaction_id);
                 params.put("email", email);
                 return params;
             }
+
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/x-www-form-urlencoded");
-                params.put("Authorization", "Bearer "+token);
+                params.put("Authorization", "Bearer " + token);
 
                 return params;
             }
@@ -241,12 +253,11 @@ public class PayActivity extends CustomActivityFullAnimated {
         VolleyQueue.getInstance().addToQueue(postRequest);
     }
 
-    public  void cancelPayment(final String transaction_id, final String token){
+    public void cancelPayment(final String transaction_id, final String token) {
         String url = String.format("https://josue95.pythonanywhere.com/api/dev/cancel_payment/?transaction_id=%s", transaction_id);
         Log.d("init", "iniciando el metodo register_payment");
         StringRequest postRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // response
@@ -254,7 +265,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                             JSONObject json = new JSONObject(response);
                             Log.d("Response json:", json.toString());
 
-                            if (json.getString("status").equals("1001")){
+                            if (json.getString("status").equals("1001")) {
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(PayActivity.this);
 
                                 builder2.setMessage("El pago se ha cancelado correctamente.")
@@ -265,8 +276,8 @@ public class PayActivity extends CustomActivityFullAnimated {
                                         finish();
                                     }
                                 });
-                                builder2.setNegativeButton("Ir al listado", new DialogInterface.OnClickListener(){
-                                    public void onClick(DialogInterface dialog, int id){
+                                builder2.setNegativeButton("Ir al listado", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
                                         // TODO: enviar al usuario a la activity de listado
                                     }
                                 });
@@ -274,7 +285,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                                 AlertDialog dialog2 = builder2.create();
                                 dialog2.show();
 
-                            }else if (json.getString("status").equals("1002")){
+                            } else if (json.getString("status").equals("1002")) {
                                 Toast.makeText(getApplicationContext(), "La cancelacion del pago falló, intente más tarde.",
                                         Toast.LENGTH_SHORT)
                                         .show();
@@ -288,8 +299,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                         Log.d("Response", response);
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
@@ -297,8 +307,8 @@ public class PayActivity extends CustomActivityFullAnimated {
 
                     }
                 }
-        ){
-//            @Override
+        ) {
+            //            @Override
 //            protected Map<String, String> getParams()
 //            {
 //                Map<String, String>  params = new HashMap<String, String>();
@@ -307,9 +317,9 @@ public class PayActivity extends CustomActivityFullAnimated {
 //            }
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/x-www-form-urlencoded");
-                params.put("Authorization", "Bearer "+token);
+                params.put("Authorization", "Bearer " + token);
 
                 return params;
             }

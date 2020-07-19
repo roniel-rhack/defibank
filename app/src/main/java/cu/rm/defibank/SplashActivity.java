@@ -45,8 +45,8 @@ public class SplashActivity extends CustomSplashActivityAnimated {
 
 
 //        Intent originalIntent = getIntent();
-        String sharedId = "defi-c2QgYF73OzKLjfBaaBNJ";//originalIntent.getStringExtra("transaction_id");
-        String token = "BGZWEj0VCxgWIwG3bjhE";
+        String sharedId = "defi-BeCvMUiNSB9ZflqTqAeM";//originalIntent.getStringExtra("transaction_id");
+        String token = "wUD1IskOFVr4ScIEBvUw";
 
 
         if (sharedId != null) {
@@ -56,6 +56,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
             editor.putBoolean("openedForOtherApp", true);
             editor.putString("transaction_id", sharedId);
             editor.putString("token", token);
+            editor.putString("email", "roniel.rack@gmail.com");
             editor.commit();
         }
 
@@ -77,11 +78,11 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                             1);
                 } else {
                     // Permission has already been granted
-                    Continue();
+//                    Continue();
                     // para pruebas de transfermovil
-//                    Intent i = new Intent(SplashActivity.this, AuthTransActivity.class);
-//                    startActivity(i);
-//                    finish();
+                    Intent i = new Intent(SplashActivity.this, PayActivity.class);
+                    startActivity(i);
+                    finish();
                 }
 
 
