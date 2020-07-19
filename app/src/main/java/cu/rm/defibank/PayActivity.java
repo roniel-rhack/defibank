@@ -1,12 +1,17 @@
 package cu.rm.defibank;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -25,18 +30,27 @@ import cu.rm.defibank.utils.VolleyQueue;
 
 public class PayActivity extends CustomActivityFullAnimated {
     Button bntSend, btnCancel;
+    ProgressBar loading;
+    TextView pay, shipment, tax, card_to, card_manage;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
+        String transaction_id = pref.getString("transaction_id", "");
+        String token = pref.getString("token", "");
+        getPayment(transaction_id, token);
+
     }
 
     @Override
     protected void setOnClickListeners() {
         bntSend.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+
     }
 
     @Override
@@ -44,6 +58,12 @@ public class PayActivity extends CustomActivityFullAnimated {
         super.findViewByIds();
         bntSend = findViewById(R.id.inputName);
         btnCancel = findViewById(R.id.btnCancel);
+        loading = findViewById(R.id.progressBar);
+        pay = findViewById(R.id.importe_product);
+        shipment = findViewById(R.id.importe_envio);
+        tax = findViewById(R.id.importe_comision);
+        card_to = findViewById(R.id.card_to);
+        card_manage = findViewById(R.id.card_manage);
     }
 
     @Override
@@ -51,14 +71,12 @@ public class PayActivity extends CustomActivityFullAnimated {
         switch (v.getId()){
             case (R.id.btnSend):
             {
-                SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
-                String transaction_id = pref.getString("transaction_id", "");
-                String token = pref.getString("token", "");
-                getPayment(transaction_id, token);
+
                 break;
             }
         }
     }
+
 
     public  void getPayment(final String transaction_id, final String token){
         String url = "https://josue95.pythonanywhere.com/api/dev/get_payment/";
@@ -74,7 +92,11 @@ public class PayActivity extends CustomActivityFullAnimated {
                             Log.d("Response json:", json.toString());
 
                             if (json.getString("status").equals("1001")){
-
+                                pay.setText(json.getString("pay"));
+                                shipment.setText(json.getString("shipment"));
+                                tax.setText(json.getString("tax"));
+                                card_to.setText(json.getString("card_to"));
+                                card_manage.setText(json.has("card_manage") ? json.getString("card_manage") : "-");
 
                             }else if (json.getString("status").equals("1002")){
                                 Toast.makeText(getApplicationContext(), "El registro falló, intente más tarde.",
@@ -105,6 +127,88 @@ public class PayActivity extends CustomActivityFullAnimated {
             {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("transaction_id", transaction_id);
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Content-Type", "x-www-form-urlencoded");
+                params.put("Authorization", token);
+
+                return params;
+            }
+        };
+
+        VolleyQueue.getInstance().addToQueue(postRequest);
+    }
+
+    private void makeTransfers(){
+
+    }
+
+    public  void registerPayment(final String transaction_id, final String email, final String token){
+        String url = "https://josue95.pythonanywhere.com/api/dev/payment/";
+        Log.d("init", "iniciando el metodo register_payment");
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            Log.d("Response json:", json.toString());
+
+                            if (json.getString("status").equals("1001")){
+                                AlertDialog.Builder builder2 = new AlertDialog.Builder(PayActivity.this);
+
+                                builder2.setMessage("El pago se ha registrado correctamente.")
+                                        .setTitle("Pago concluido");
+                                builder2.setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User clicked OK button
+                                        finish();
+                                    }
+                                });
+                                builder2.setNegativeButton("Ir al listado", new DialogInterface.OnClickListener(){
+                                    public void onClick(DialogInterface dialog, int id){
+                                        // TODO: enviar al usuario a la activity de listado
+                                    }
+                                });
+
+                                AlertDialog dialog2 = builder2.create();
+                                dialog2.show();
+
+                            }else if (json.getString("status").equals("1002")){
+                                Toast.makeText(getApplicationContext(), "El registro falló, intente más tarde.",
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.getMessage());
+
+                    }
+                }
+        ){
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("transaction_id", transaction_id);
+                params.put("email", email);
                 return params;
             }
             @Override

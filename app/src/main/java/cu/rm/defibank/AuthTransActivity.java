@@ -115,7 +115,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
             AlertDialog.Builder builder2 = new AlertDialog.Builder(AuthTransActivity.this);
 
             builder2.setMessage("Usted debe autorizar a la APP para que pueda utilizar los códigos USSD.")
-                    .setTitle("");
+                    .setTitle("Permiso de accesibilidad");
             builder2.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     // User clicked OK button
