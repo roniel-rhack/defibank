@@ -37,7 +37,7 @@ public class PayActivity extends CustomActivityFullAnimated {
 
     public PayActivity() {
         super();
-        containerInAnimDisable = false;
+        containerInAnimDisable = true;
     }
 
     @Override
