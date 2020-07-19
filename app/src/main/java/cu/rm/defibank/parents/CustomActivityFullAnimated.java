@@ -22,6 +22,7 @@ public abstract class CustomActivityFullAnimated extends CustomActivity {
     protected TextView labelNameApp;
     protected TextView labelSlogan;
 
+    protected boolean containerInAnimDisable = false;
     protected Context contextGlobal;
 
     @Override
@@ -46,7 +47,7 @@ public abstract class CustomActivityFullAnimated extends CustomActivity {
     protected void animationsIn() {
         if (labelUi != null)
             labelUi.setAnimation(AnimationUtils.loadAnimation(this, R.anim.label_ui_in_delayed));
-        if (container != null)
+        if (container != null && !containerInAnimDisable)
             container.setAnimation(AnimationUtils.loadAnimation(this, R.anim.container_in_delayed));
         if (borderUp != null)
             borderUp.setAnimation(AnimationUtils.loadAnimation(this, R.anim.border_up));

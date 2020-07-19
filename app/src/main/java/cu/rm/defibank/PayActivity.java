@@ -35,6 +35,10 @@ public class PayActivity extends CustomActivityFullAnimated {
     String transaction_id, token, email;
     Double payNo, shipmentNo, taxNo, totalPayNo;
 
+    public PayActivity() {
+        super();
+        containerInAnimDisable = false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -332,21 +336,5 @@ public class PayActivity extends CustomActivityFullAnimated {
         };
 
         VolleyQueue.getInstance().addToQueue(postRequest);
-    }
-
-    @Override
-    protected void animationsIn() {
-        if (labelUi != null)
-            labelUi.setAnimation(AnimationUtils.loadAnimation(this, R.anim.label_ui_in_delayed));
-        if (borderUp != null)
-            borderUp.setAnimation(AnimationUtils.loadAnimation(this, R.anim.border_up));
-        if (borderRight != null)
-            borderRight.setAnimation(AnimationUtils.loadAnimation(this, R.anim.border_right));
-        if (borderCenter != null)
-            borderCenter.setAnimation(AnimationUtils.loadAnimation(this, R.anim.border_center));
-        if (labelNameApp != null)
-            labelNameApp.setAnimation(AnimationUtils.loadAnimation(this, R.anim.label_name));
-        if (labelSlogan != null)
-            labelSlogan.setAnimation(AnimationUtils.loadAnimation(this, R.anim.label_slogan));
     }
 }
