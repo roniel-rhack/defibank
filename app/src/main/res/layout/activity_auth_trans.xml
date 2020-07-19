@@ -116,7 +116,7 @@
             android:ems="10"
             android:fontFamily="@font/basic"
             android:hint="Código de autenticación"
-            android:inputType="number"
+            android:inputType="numberPassword"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
