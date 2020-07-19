@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ServiceInfo;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -37,6 +39,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
     ImageView logoTransfer;
     EditText codeInput;
     String codeTransf;
+    ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
                 editor.putInt("registrationStep", 3);
                 editor.putString("codeTransfermovil", codeTransf);
                 editor.commit();
+
                 autenticarTransfermovil();
                 SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
                     @Override
@@ -102,7 +106,26 @@ public class AuthTransActivity extends CustomActivityAnimated {
         // TODO: esta es la forma de comprobar que el permiso de accesibilidad (PARA USSD) esta otorgado, hay que decirle al usuario que lo active.
         boolean permisoAccesibilidad = isAccessibilityServiceEnabled(this, USSDService.class);
         System.out.println("Accesibilidad: " + permisoAccesibilidad);
-        USSDUtils.autenticarTransfermovil(getApplicationContext(), codeTransf);
+        if (permisoAccesibilidad){
+            btnSend.setVisibility(View.INVISIBLE);
+            loading.setVisibility(View.VISIBLE);
+            USSDUtils.autenticarTransfermovil(getApplicationContext(), codeTransf);
+
+        }else{
+            AlertDialog.Builder builder2 = new AlertDialog.Builder(AuthTransActivity.this);
+
+            builder2.setMessage("Usted debe autorizar a la APP para que pueda utilizar los códigos USSD.")
+                    .setTitle("");
+            builder2.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                    startActivityForResult(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), 0);
+                }
+            });
+
+            AlertDialog dialog2 = builder2.create();
+            dialog2.show();
+        }
 
     }
 
@@ -131,6 +154,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
         btnCancel = findViewById(R.id.btnCancel);
         btnSend = findViewById(R.id.btnSend);
         codeInput = findViewById(R.id.inputCodeAct);
+        loading = findViewById(R.id.progressBar2);
     }
 
     @Override
