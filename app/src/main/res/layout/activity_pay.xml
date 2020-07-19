@@ -328,11 +328,11 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnCancel2"
+            app:layout_constraintStart_toEndOf="@+id/btnDetails"
             tools:ignore="HardcodedText" />
 
         <Button
-            android:id="@+id/btnCancel2"
+            android:id="@+id/btnDetails"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
