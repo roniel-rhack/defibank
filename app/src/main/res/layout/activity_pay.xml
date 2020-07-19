@@ -315,7 +315,7 @@
             android:fontFamily="@font/basic"
             android:paddingHorizontal="20dp"
             android:paddingVertical="12dp"
-            android:text="Cambiar moneda"
+            android:text="Cambiar a CUC"
             android:textSize="20sp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/btnCancel"
