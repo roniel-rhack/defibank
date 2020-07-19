@@ -46,8 +46,8 @@ public class CheckActivity extends CustomActivityAnimated {
             case R.id.btnResend: {
                 String code = codeInput.getText().toString();
                 // TODO: hacer las validaciones pertinentes con el code
-                btnSend.setVisibility(View.VISIBLE);
-                loading.setVisibility(View.INVISIBLE);
+                btnSend.setVisibility(View.INVISIBLE);
+                loading.setVisibility(View.VISIBLE);
                 CheckCode(code);
                 break;
             }
@@ -65,7 +65,7 @@ public class CheckActivity extends CustomActivityAnimated {
         btnSend = findViewById(R.id.btnSend);
         btnResend = findViewById(R.id.btnResend);
         codeInput = findViewById(R.id.inputCodeAct);
-        loading = findViewById(R.id.progressBar);
+        loading = findViewById(R.id.progressBar3);
     }
 
     @Override
@@ -116,8 +116,8 @@ public class CheckActivity extends CustomActivityAnimated {
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.getMessage());
-                        btnSend.setVisibility(View.INVISIBLE);
-                        loading.setVisibility(View.VISIBLE);
+                        btnSend.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.INVISIBLE);
 
                     }
                 }

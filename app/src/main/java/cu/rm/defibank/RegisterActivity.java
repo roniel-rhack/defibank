@@ -65,6 +65,7 @@ public class RegisterActivity extends CustomActivityFullAnimated {
                 btnSend.setVisibility(View.INVISIBLE);
                 loading.setVisibility(View.VISIBLE);
                 registerUser(email, name);
+                break;
             }
         }
     }
