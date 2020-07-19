@@ -90,11 +90,14 @@ public class PayActivity extends CustomActivityFullAnimated {
                     shipment.setText(shipmentNo / 25 + "");
                     tax.setText(taxNo / 25 + "");
                     total_to_pay.setText(totalPayNo / 25 + "");
+                    btnChange.setText("Cambiar a CUP");
                 }else{
                     pay.setText(payNo  + "");
                     shipment.setText(shipmentNo  + "");
                     tax.setText(taxNo  + "");
                     total_to_pay.setText(totalPayNo  + "");
+                    btnChange.setText("Cambiar a CUC");
+
                 }
 
                 break;
