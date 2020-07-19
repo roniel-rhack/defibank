@@ -114,13 +114,14 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="68dp"
             android:fontFamily="@font/basic"
             android:paddingHorizontal="30dp"
             android:paddingVertical="15dp"
             android:text="Verificar"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/inputCodeAct"
             tools:ignore="HardcodedText" />
@@ -177,6 +178,18 @@
             app:layout_constraintTop_toBottomOf="@+id/btnSend"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="HardcodedText" />
+
+        <ProgressBar
+            android:id="@+id/progressBar3"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputCodeAct" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
