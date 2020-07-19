@@ -103,6 +103,64 @@
         app:layout_constraintTop_toBottomOf="@+id/borderCenter">
 
         <TextView
+            android:id="@+id/card_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="9224 0699 9000 0011"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/importe_product_label"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/card_to_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="Tarjeta destino:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/card_manage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="9204 0699 9000 0021"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/importe_product_label"
+            app:layout_constraintTop_toBottomOf="@+id/card_to"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/card_manage_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="Tarjeta comisión:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_to_label"
+            tools:ignore="HardcodedText" />
+
+        <TextView
             android:id="@+id/importe_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,7 +172,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.80"
             app:layout_constraintStart_toEndOf="@+id/importe_product_label"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_manage"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -128,7 +186,7 @@
             android:text="Importe de la compra:"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_manage_label"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -239,14 +297,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="319dp" />
+            app:layout_constraintTop_toTopOf="@+id/btnSend" />
 
         <Button
             android:id="@+id/btnSend"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="144dp"
+            android:layout_marginTop="52dp"
+            android:drawableStart="@android:drawable/ic_menu_send"
             android:fontFamily="@font/basic"
             android:text="Pagar"
             android:textSize="20sp"
@@ -262,6 +321,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:drawableStart="@android:drawable/ic_delete"
             android:fontFamily="@font/basic"
             android:text="Cancelar pago"
             android:textSize="20sp"
@@ -278,6 +338,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginBottom="16dp"
+            android:drawableStart="@android:drawable/ic_menu_info_details"
             android:fontFamily="@font/basic"
             android:text="Detalles"
             android:textSize="20sp"
