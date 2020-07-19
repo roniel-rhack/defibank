@@ -24,7 +24,8 @@ import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.VolleyQueue;
 
 public class PayActivity extends CustomActivityFullAnimated {
-    Button bntSend;
+    Button bntSend, btnCancel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +35,34 @@ public class PayActivity extends CustomActivityFullAnimated {
 
     @Override
     protected void setOnClickListeners() {
+        bntSend.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+    }
 
+    @Override
+    protected void findViewByIds() {
+        super.findViewByIds();
+        bntSend = findViewById(R.id.inputName);
+        btnCancel = findViewById(R.id.btnCancel);
     }
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case (R.id.btnSend):
+            {
+                SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
+                String transaction_id = pref.getString("transaction_id", "");
+                String token = pref.getString("token", "");
+                getPayment(transaction_id, token);
+                break;
+            }
+        }
     }
 
-    public  void registerUser(final String email, final String name){
-        String url = "https://josue95.pythonanywhere.com/api/dev/register/";
-        Log.d("init", "iniciando el metodo");
+    public  void getPayment(final String transaction_id, final String token){
+        String url = "https://josue95.pythonanywhere.com/api/dev/get_payment/";
+        Log.d("init", "iniciando el metodo get_payment");
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -56,16 +74,8 @@ public class PayActivity extends CustomActivityFullAnimated {
                             Log.d("Response json:", json.toString());
 
                             if (json.getString("status").equals("1001")){
-                                SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
-                                SharedPreferences.Editor editor = pref.edit();
-                                editor.putBoolean("isIntroOpened",true);
-                                editor.putInt("registrationStep", 1);
-                                editor.putString("email", email);
-                                editor.putString("name", name);
-                                editor.commit();
-                                Intent intent = new Intent(RegisterActivity.this, CheckActivity.class);
-                                startActivity(intent);
-                                finish();
+
+
                             }else if (json.getString("status").equals("1002")){
                                 Toast.makeText(getApplicationContext(), "El registro falló, intente más tarde.",
                                         Toast.LENGTH_SHORT)
@@ -86,8 +96,6 @@ public class PayActivity extends CustomActivityFullAnimated {
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.getMessage());
-                        btnSend.setVisibility(View.VISIBLE);
-                        loading.setVisibility(View.INVISIBLE);
 
                     }
                 }
@@ -96,17 +104,17 @@ public class PayActivity extends CustomActivityFullAnimated {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("email", email);
+                params.put("transaction_id", transaction_id);
                 return params;
             }
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                Map<String, String>  params = new HashMap<String, String>();
-//                params.put("User-Agent", "Nintendo Gameboy");
-//                params.put("Accept-Language", "fr");
-//
-//                return params;
-//            }
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Content-Type", "x-www-form-urlencoded");
+                params.put("Authorization", token);
+
+                return params;
+            }
         };
 
         VolleyQueue.getInstance().addToQueue(postRequest);

@@ -46,6 +46,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
 
 //        Intent originalIntent = getIntent();
         String sharedId = "defi-c2QgYF73OzKLjfBaaBNJ";//originalIntent.getStringExtra("transaction_id");
+        String token = "BGZWEj0VCxgWIwG3bjhE";
 
 
         if (sharedId != null) {
@@ -53,7 +54,8 @@ public class SplashActivity extends CustomSplashActivityAnimated {
             SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
             SharedPreferences.Editor editor = pref.edit();
             editor.putBoolean("openedForOtherApp", true);
-            editor.putString("transactionId", sharedId);
+            editor.putString("transaction_id", sharedId);
+            editor.putString("token", token);
             editor.commit();
         }
 
