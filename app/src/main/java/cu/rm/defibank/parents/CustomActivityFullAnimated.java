@@ -1,5 +1,6 @@
 package cu.rm.defibank.parents;
 
+import android.content.Context;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -13,17 +14,20 @@ import cu.rm.defibank.R;
  * Una actividad personalizada para hacer mas guiada y sencilla la implementacion de las actividades
  */
 public abstract class CustomActivityFullAnimated extends CustomActivity {
-    TextView labelUi;
+    protected TextView labelUi;
     protected ConstraintLayout container;
-    View borderUp;
-    View borderRight;
-    View borderCenter;
-    TextView labelNameApp;
-    TextView labelSlogan;
+    protected View borderUp;
+    protected View borderRight;
+    protected View borderCenter;
+    protected TextView labelNameApp;
+    protected TextView labelSlogan;
+
+    protected Context contextGlobal;
 
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
+        contextGlobal = this;
         animationsIn();
     }
 

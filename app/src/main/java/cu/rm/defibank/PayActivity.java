@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -85,17 +86,17 @@ public class PayActivity extends CustomActivityFullAnimated {
                 break;
             }
             case (R.id.btnChange): {
-                if (btnChange.getText().equals("Cambiar a CUC")){
+                if (btnChange.getText().equals("Cambiar a CUC")) {
                     pay.setText(payNo / 25 + "");
                     shipment.setText(shipmentNo / 25 + "");
                     tax.setText(taxNo / 25 + "");
                     total_to_pay.setText(totalPayNo / 25 + "");
                     btnChange.setText("Cambiar a CUP");
-                }else{
-                    pay.setText(payNo  + "");
-                    shipment.setText(shipmentNo  + "");
-                    tax.setText(taxNo  + "");
-                    total_to_pay.setText(totalPayNo  + "");
+                } else {
+                    pay.setText(payNo + "");
+                    shipment.setText(shipmentNo + "");
+                    tax.setText(taxNo + "");
+                    total_to_pay.setText(totalPayNo + "");
                     btnChange.setText("Cambiar a CUC");
 
                 }
@@ -131,6 +132,8 @@ public class PayActivity extends CustomActivityFullAnimated {
                                 total_to_pay.setText(totalPayNo + "");
                                 container.setVisibility(View.VISIBLE);
                                 loading_global.setVisibility(View.INVISIBLE);
+                                if (container != null)
+                                    container.setAnimation(AnimationUtils.loadAnimation(contextGlobal, R.anim.container_in_delayed));
 
 
                             } else if (json.getString("status").equals("1002")) {
@@ -329,5 +332,21 @@ public class PayActivity extends CustomActivityFullAnimated {
         };
 
         VolleyQueue.getInstance().addToQueue(postRequest);
+    }
+
+    @Override
+    protected void animationsIn() {
+        if (labelUi != null)
+            labelUi.setAnimation(AnimationUtils.loadAnimation(this, R.anim.label_ui_in_delayed));
+        if (borderUp != null)
+            borderUp.setAnimation(AnimationUtils.loadAnimation(this, R.anim.border_up));
+        if (borderRight != null)
+            borderRight.setAnimation(AnimationUtils.loadAnimation(this, R.anim.border_right));
+        if (borderCenter != null)
+            borderCenter.setAnimation(AnimationUtils.loadAnimation(this, R.anim.border_center));
+        if (labelNameApp != null)
+            labelNameApp.setAnimation(AnimationUtils.loadAnimation(this, R.anim.label_name));
+        if (labelSlogan != null)
+            labelSlogan.setAnimation(AnimationUtils.loadAnimation(this, R.anim.label_slogan));
     }
 }
