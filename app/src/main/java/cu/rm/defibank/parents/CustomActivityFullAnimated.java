@@ -14,7 +14,7 @@ import cu.rm.defibank.R;
  */
 public abstract class CustomActivityFullAnimated extends CustomActivity {
     TextView labelUi;
-    ConstraintLayout container;
+    protected ConstraintLayout container;
     View borderUp;
     View borderRight;
     View borderCenter;
