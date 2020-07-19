@@ -162,7 +162,7 @@
             app:layout_constraintTop_toBottomOf="@+id/card_to_label"
             tools:ignore="HardcodedText" />
 
-        <TextView
+        <cu.rm.defibank.utils.CurrencyTextView
             android:id="@+id/importe_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -192,7 +192,7 @@
             app:layout_constraintTop_toBottomOf="@+id/card_manage_label"
             tools:ignore="HardcodedText" />
 
-        <TextView
+        <cu.rm.defibank.utils.CurrencyTextView
             android:id="@+id/importe_envio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
             app:layout_constraintTop_toBottomOf="@+id/importe_product_label"
             tools:ignore="HardcodedText" />
 
-        <TextView
+        <cu.rm.defibank.utils.CurrencyTextView
             android:id="@+id/importe_comision"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
             app:layout_constraintTop_toBottomOf="@+id/importe_envio_label"
             tools:ignore="HardcodedText" />
 
-        <TextView
+        <cu.rm.defibank.utils.CurrencyTextView
             android:id="@+id/importe_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -260,7 +260,7 @@
             android:autofillHints="name"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/basic"
-            android:text="$ 1740.00"
+            android:text="1740.135"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -306,20 +306,43 @@
             app:layout_constraintTop_toTopOf="@+id/btnSend" />
 
         <Button
+            android:id="@+id/btnChange"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:drawableStart="@android:drawable/ic_popup_sync"
+            android:fontFamily="@font/basic"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp"
+            android:text="Cambiar moneda"
+            android:textSize="20sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/btnCancel"
+            app:layout_constraintEnd_toStartOf="@+id/btnSend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/importe_total_label"
+            app:layout_constraintVertical_bias="0.8"
+            tools:ignore="HardcodedText" />
+
+        <Button
             android:id="@+id/btnSend"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="52dp"
+            android:layout_marginEnd="20dp"
             android:drawableStart="@android:drawable/ic_menu_send"
             android:fontFamily="@font/basic"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp"
             android:text="Pagar"
             android:textSize="20sp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/btnCancel"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/importe_total_label"
+            app:layout_constraintVertical_bias="0.8"
             tools:ignore="HardcodedText" />
 
         <Button
