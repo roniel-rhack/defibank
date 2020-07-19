@@ -133,7 +133,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                                 container.setVisibility(View.VISIBLE);
                                 loading_global.setVisibility(View.INVISIBLE);
                                 if (container != null)
-                                    container.setAnimation(AnimationUtils.loadAnimation(contextGlobal, R.anim.container_in_delayed));
+                                    container.setAnimation(AnimationUtils.loadAnimation(contextGlobal, R.anim.container_in));
 
 
                             } else if (json.getString("status").equals("1002")) {
