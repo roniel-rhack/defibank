@@ -60,8 +60,10 @@ public class RegisterActivity extends CustomActivityFullAnimated {
             {
                 String name = nameEdit.getText().toString();
                 String email = emailEdit.getText().toString();
-                // TODO: hacer las validaciones
+                // TODO: hacer las validaciones pertinentes
                 Log.d("Registration", name+" "+email);
+                btnSend.setVisibility(View.INVISIBLE);
+                loading.setVisibility(View.VISIBLE);
                 registerUser(email, name);
             }
         }
@@ -111,6 +113,8 @@ public class RegisterActivity extends CustomActivityFullAnimated {
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.getMessage());
+                        btnSend.setVisibility(View.VISIBLE);
+                        loading.setVisibility(View.INVISIBLE);
 
                     }
                 }
