@@ -56,7 +56,7 @@ public class PayActivity extends CustomActivityFullAnimated {
     @Override
     protected void findViewByIds() {
         super.findViewByIds();
-        bntSend = findViewById(R.id.inputName);
+        bntSend = findViewById(R.id.btnSend);
         btnCancel = findViewById(R.id.btnCancel);
         loading = findViewById(R.id.progressBar);
         pay = findViewById(R.id.importe_product);
@@ -79,9 +79,9 @@ public class PayActivity extends CustomActivityFullAnimated {
 
 
     public  void getPayment(final String transaction_id, final String token){
-        String url = "https://josue95.pythonanywhere.com/api/dev/get_payment/";
+        String url = String.format("https://josue95.pythonanywhere.com/api/dev/get_payment/?transaction_id=%s", transaction_id);
         Log.d("init", "iniciando el metodo get_payment");
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>()
                 {
                     @Override
@@ -122,18 +122,18 @@ public class PayActivity extends CustomActivityFullAnimated {
                     }
                 }
         ){
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("transaction_id", transaction_id);
-                return params;
-            }
+//            @Override
+//            protected Map<String, String> getParams()
+//            {
+//                Map<String, String>  params = new HashMap<String, String>();
+//                params.put("transaction_id", transaction_id);
+//                return params;
+//            }
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("Content-Type", "x-www-form-urlencoded");
-                params.put("Authorization", token);
+                params.put("Authorization", "Bearer "+token);
 
                 return params;
             }
