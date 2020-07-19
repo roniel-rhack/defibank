@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -30,6 +31,7 @@ public class CheckActivity extends CustomActivityAnimated {
     Button btnCancel;
     Button btnSend, btnResend;
     EditText codeInput;
+    ProgressBar loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class CheckActivity extends CustomActivityAnimated {
             case R.id.btnResend: {
                 String code = codeInput.getText().toString();
                 // TODO: hacer las validaciones pertinentes con el code
+                btnSend.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.INVISIBLE);
                 CheckCode(code);
                 break;
             }
@@ -61,6 +65,7 @@ public class CheckActivity extends CustomActivityAnimated {
         btnSend = findViewById(R.id.btnSend);
         btnResend = findViewById(R.id.btnResend);
         codeInput = findViewById(R.id.inputCodeAct);
+        loading = findViewById(R.id.progressBar);
     }
 
     @Override
@@ -111,6 +116,8 @@ public class CheckActivity extends CustomActivityAnimated {
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.getMessage());
+                        btnSend.setVisibility(View.INVISIBLE);
+                        loading.setVisibility(View.VISIBLE);
 
                     }
                 }
