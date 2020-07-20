@@ -26,8 +26,7 @@ import com.tuenti.smsradar.SmsRadar;
 
 import java.util.List;
 
-import cu.rm.defibank.parents.CustomActivityAnimated;
-import cu.rm.defibank.utils.CustomDialogFragment;
+import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.USSDUtils;
 

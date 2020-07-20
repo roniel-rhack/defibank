@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import cu.rm.defibank.parents.CustomActivityAnimated;
+import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.VolleyQueue;
 

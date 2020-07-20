@@ -1,4 +1,4 @@
-package cu.rm.defibank.utils;
+package cu.rm.defibank.components;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,7 +12,6 @@ public class CurrencyTextView extends androidx.appcompat.widget.AppCompatTextVie
 
     public CurrencyTextView(Context context) {
         super(context);
-
     }
 
     public CurrencyTextView(Context context, AttributeSet attrs) {

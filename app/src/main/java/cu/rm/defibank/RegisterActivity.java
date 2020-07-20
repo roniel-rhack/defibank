@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,7 +21,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import cu.rm.defibank.parents.CustomActivityFullAnimated;
+import cu.rm.defibank.customsCompatActivity.CustomActivityFullAnimated;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.VolleyQueue;
 

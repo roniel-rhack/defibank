@@ -162,7 +162,7 @@
             app:layout_constraintTop_toBottomOf="@+id/card_to_label"
             tools:ignore="HardcodedText" />
 
-        <cu.rm.defibank.utils.CurrencyTextView
+        <cu.rm.defibank.components.CurrencyTextView
             android:id="@+id/importe_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -192,7 +192,7 @@
             app:layout_constraintTop_toBottomOf="@+id/card_manage_label"
             tools:ignore="HardcodedText" />
 
-        <cu.rm.defibank.utils.CurrencyTextView
+        <cu.rm.defibank.components.CurrencyTextView
             android:id="@+id/importe_envio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
             app:layout_constraintTop_toBottomOf="@+id/importe_product_label"
             tools:ignore="HardcodedText" />
 
-        <cu.rm.defibank.utils.CurrencyTextView
+        <cu.rm.defibank.components.CurrencyTextView
             android:id="@+id/importe_comision"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
             app:layout_constraintTop_toBottomOf="@+id/importe_envio_label"
             tools:ignore="HardcodedText" />
 
-        <cu.rm.defibank.utils.CurrencyTextView
+        <cu.rm.defibank.components.CurrencyTextView
             android:id="@+id/importe_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
