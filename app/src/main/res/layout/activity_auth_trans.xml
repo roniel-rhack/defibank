@@ -98,7 +98,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -111,7 +111,7 @@
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="300dp"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
             android:autofillHints="@null"
             android:ems="10"
             android:fontFamily="@font/basic"
@@ -119,8 +119,9 @@
             android:inputType="numberPassword"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label3"
+            app:layout_constraintTop_toBottomOf="@+id/banco_sel"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -128,7 +129,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/basic"
             android:paddingHorizontal="30dp"
             android:paddingVertical="15dp"
@@ -149,7 +150,7 @@
             android:autofillHints="name"
             android:fontFamily="@font/basic"
             android:paddingHorizontal="16dp"
-            android:text="Ingrese su código de autenticación del transfermóvil"
+            android:text="Seleccione su Banco y ingrese su código de autenticación del transfermóvil"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -185,6 +186,38 @@
             app:layout_constraintTop_toBottomOf="@+id/btnSend"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="HardcodedText" />
+
+        <RadioGroup
+            android:id="@+id/banco_sel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label3">
+
+            <RadioButton
+                android:id="@+id/bank_bandec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_bandec"
+                android:text="BANDEC" />
+
+            <RadioButton
+                android:id="@+id/bank_bpa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_bpa"
+                android:text="BPA" />
+
+            <RadioButton
+                android:id="@+id/bank_banmet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_bm"
+                android:text="BanMet" />
+        </RadioGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
