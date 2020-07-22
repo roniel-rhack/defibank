@@ -27,12 +27,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import cu.rm.defibank.customsCompatActivity.CustomActivityFullAnimated;
+import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.USSDUtils;
 import cu.rm.defibank.utils.VolleyQueue;
 
-public class PayActivity extends CustomActivityFullAnimated {
+public class PayActivity extends CustomActivityAnimated {
     Button bntSend, btnCancel, btnChange;
     ProgressBar loading, loading_global;
     TextView pay, shipment, tax, card_to, card_manage, total_to_pay;
@@ -144,7 +144,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                                 container.setVisibility(View.VISIBLE);
                                 loading_global.setVisibility(View.INVISIBLE);
                                 if (container != null)
-                                    container.setAnimation(AnimationUtils.loadAnimation(contextGlobal, R.anim.container_in));
+                                    container.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.container_in));
 
 
                             } else if (json.getString("status").equals("1002")) {
@@ -192,13 +192,13 @@ public class PayActivity extends CustomActivityFullAnimated {
 
     private void makeTransfers() {
 
-        if (card_for_tax.equals("-")){
+        if (card_for_tax.equals("-")) {
             // la carretera es P2V
             double importe_venta;
-            if (btnChange.getText().equals("Cambiar a CUC")){
-                importe_venta = (payNo+shipmentNo+taxNo);
-            }else{
-                importe_venta = ((payNo+shipmentNo+taxNo)/25);
+            if (btnChange.getText().equals("Cambiar a CUC")) {
+                importe_venta = (payNo + shipmentNo + taxNo);
+            } else {
+                importe_venta = ((payNo + shipmentNo + taxNo) / 25);
             }
             USSDUtils.transferirTransfermovil(getApplicationContext(), card_for_pay, importe_venta);
             SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
@@ -209,7 +209,7 @@ public class PayActivity extends CustomActivityFullAnimated {
 
                 @Override
                 public void onSmsReceived(Sms sms) {
-                    Log.d("SMS received: ", sms.getAddress()+": "+sms.getMsg());
+                    Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
                     AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
 
                     builder.setMessage(sms.getMsg())
@@ -227,14 +227,14 @@ public class PayActivity extends CustomActivityFullAnimated {
 
                 }
             });
-        }else{
+        } else {
             final double importe_venta, importe_comision;
-            if (btnChange.getText().equals("Cambiar a CUC")){
-                importe_venta = (payNo+shipmentNo);
+            if (btnChange.getText().equals("Cambiar a CUC")) {
+                importe_venta = (payNo + shipmentNo);
                 importe_comision = taxNo;
-            }else{
-                importe_venta = ((payNo+shipmentNo)/25);
-                importe_comision = taxNo/25;
+            } else {
+                importe_venta = ((payNo + shipmentNo) / 25);
+                importe_comision = taxNo / 25;
 
             }
             USSDUtils.transferirTransfermovil(getApplicationContext(), card_for_pay, importe_venta);
@@ -246,12 +246,12 @@ public class PayActivity extends CustomActivityFullAnimated {
 
                 @Override
                 public void onSmsReceived(Sms sms) {
-                    Log.d("SMS received: ", sms.getAddress()+": "+sms.getMsg());
+                    Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
                     // TODO: validar si el mensaje es de PagoXMovil
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
 
-                    builder.setMessage(sms.getMsg()+" A continuación se pagará la comisión.")
+                    builder.setMessage(sms.getMsg() + " A continuación se pagará la comisión.")
                             .setTitle(sms.getAddress());
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -266,12 +266,12 @@ public class PayActivity extends CustomActivityFullAnimated {
 
                                 @Override
                                 public void onSmsReceived(Sms sms) {
-                                    Log.d("SMS received: ", sms.getAddress()+": "+sms.getMsg());
+                                    Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
                                     // TODO: validar si el mensaje es de PagoXMovil
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
 
-                                    builder.setMessage(sms.getMsg()+" A continuación se pagará la comisión.")
+                                    builder.setMessage(sms.getMsg() + " A continuación se pagará la comisión.")
                                             .setTitle(sms.getAddress());
                                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
@@ -308,7 +308,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                         // response
                         try {
                             JSONObject json = new JSONObject(response);
-                            Log.d("Response json - register payment:", json.toString());
+                            Log.d("json - reg payment:", json.toString());
                             USSDUtils.salirTransfermovil(getApplicationContext());
 
                             if (json.getString("status").equals("1001")) {

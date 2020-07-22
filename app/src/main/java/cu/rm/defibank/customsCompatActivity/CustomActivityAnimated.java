@@ -13,8 +13,10 @@ import cu.rm.defibank.R;
  * Una actividad personalizada para hacer mas guiada y sencilla la implementacion de las actividades
  */
 public abstract class CustomActivityAnimated extends CustomActivity {
-    TextView labelUi;
-    ConstraintLayout container;
+    protected TextView labelUi;
+    protected ConstraintLayout container;
+
+    protected boolean containerInAnimDisable = false;
 
     @Override
     public void setContentView(int layoutResID) {
@@ -32,7 +34,7 @@ public abstract class CustomActivityAnimated extends CustomActivity {
     protected void animationsIn() {
         if (labelUi != null)
             labelUi.setAnimation(AnimationUtils.loadAnimation(this, R.anim.label_ui_in));
-        if (container != null)
+        if (container != null && !containerInAnimDisable)
             container.setAnimation(AnimationUtils.loadAnimation(this, R.anim.container_in));
     }
 
