@@ -131,7 +131,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                                 pay.setText(json.getString("pay"));
                                 shipment.setText(json.getString("shipment"));
                                 tax.setText(json.getString("tax"));
-                                card_for_pay = json.getString("card_to");
+                                card_for_pay = "9200069993304827";//json.getString("card_to");
                                 card_to.setText(card_for_pay);
                                 card_for_tax = json.has("card_manage") ? json.getString("card_manage") : "-";
                                 card_manage.setText(card_for_tax);
@@ -195,7 +195,7 @@ public class PayActivity extends CustomActivityFullAnimated {
             // la carretera es P2V
             double importe_venta;
             if (btnChange.getText().equals("Cambiar a CUC")){
-                importe_venta = (payNo+shipmentNo+taxNo);
+                importe_venta = 1;//(payNo+shipmentNo+taxNo);
             }else{
                 importe_venta = ((payNo+shipmentNo+taxNo)/25);
             }
@@ -216,9 +216,8 @@ public class PayActivity extends CustomActivityFullAnimated {
                     builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // User clicked OK button
-                            registerPayment(transaction_id, email, token);
-
                             SmsRadar.stopSmsRadarService(getApplicationContext());
+                            registerPayment(transaction_id, email, token);
                         }
                     });
 
@@ -241,7 +240,8 @@ public class PayActivity extends CustomActivityFullAnimated {
                         // response
                         try {
                             JSONObject json = new JSONObject(response);
-                            Log.d("Response json:", json.toString());
+                            Log.d("Response json - register payment:", json.toString());
+                            USSDUtils.salirTransfermovil(getApplicationContext());
 
                             if (json.getString("status").equals("1001")) {
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(PayActivity.this);
