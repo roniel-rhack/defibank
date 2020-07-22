@@ -82,7 +82,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked OK button
                                 SmsRadar.stopSmsRadarService(getApplicationContext());
-                                goActivity(v, AuthTransActivity.this, MainActivity.class);
+                                goActivity(v, AuthTransActivity.this, PayActivity.class);
                             }
                         });
 

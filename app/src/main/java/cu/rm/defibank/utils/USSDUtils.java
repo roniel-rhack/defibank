@@ -118,7 +118,7 @@ public class USSDUtils extends Application {
     public static void transferirTransfermovil(final Context context, final String cuenta, final Double importe) {
 
         final USSDApi ussdApi = USSDController.getInstance(context);
-        ussdApi.callUSSDInvoke(GlobalPrefs.AUTENTICAR_TRANSFERMOVIL_USSD, getMap(), new USSDController.CallbackInvoke() {
+        ussdApi.callUSSDInvoke(GlobalPrefs.TRANSFERIR_TRANSFERMOVIL_USSD, getMap(), new USSDController.CallbackInvoke() {
             @Override
             public void responseInvoke(String message) {
                 // message has the response string data
