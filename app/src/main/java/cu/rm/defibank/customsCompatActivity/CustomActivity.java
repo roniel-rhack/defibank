@@ -57,4 +57,17 @@ public abstract class CustomActivity extends AppCompatActivity implements View.O
 
         animationsOut(v);
     }
+
+    protected void goActivity(View v, final Intent intent) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+            }
+        }, 300);
+
+        animationsOut(v);
+    }
 }

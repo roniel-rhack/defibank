@@ -1,18 +1,13 @@
 package cu.rm.defibank;
 
 import android.Manifest;
-import android.accessibilityservice.AccessibilityService;
-import android.accessibilityservice.AccessibilityServiceInfo;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.pm.ServiceInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,12 +16,9 @@ import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.romellfudi.ussdlibrary.USSDService;
-
-import java.util.List;
 import java.util.concurrent.Executor;
 
-import cu.rm.defibank.parents.CustomSplashActivityAnimated;
+import cu.rm.defibank.customsCompatActivity.CustomSplashActivityAnimated;
 import cu.rm.defibank.utils.GlobalPrefs;
 
 
@@ -67,7 +59,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
 
                 if (ContextCompat.checkSelfPermission(SplashActivity.this,
                         Manifest.permission.READ_PHONE_STATE)
-                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(SplashActivity.this, Manifest.permission.READ_SMS)!=PackageManager.PERMISSION_GRANTED ||
+                        != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(SplashActivity.this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED ||
                         ContextCompat.checkSelfPermission(SplashActivity.this,
                                 Manifest.permission.CALL_PHONE)
                                 != PackageManager.PERMISSION_GRANTED) {
@@ -80,7 +72,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                     // Permission has already been granted
 //                    Continue();
                     // para pruebas de transfermovil
-                    Intent i = new Intent(SplashActivity.this, PayActivity.class);
+                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();
                 }
@@ -114,8 +106,6 @@ public class SplashActivity extends CustomSplashActivityAnimated {
             // permissions this app might request.
         }
     }
-
-
 
     private void Continue() {
         // check if the phone support biometric authentication
