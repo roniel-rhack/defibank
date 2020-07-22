@@ -17,6 +17,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.tuenti.smsradar.Sms;
+import com.tuenti.smsradar.SmsListener;
+import com.tuenti.smsradar.SmsRadar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,13 +29,14 @@ import java.util.Map;
 
 import cu.rm.defibank.customsCompatActivity.CustomActivityFullAnimated;
 import cu.rm.defibank.utils.GlobalPrefs;
+import cu.rm.defibank.utils.USSDUtils;
 import cu.rm.defibank.utils.VolleyQueue;
 
 public class PayActivity extends CustomActivityFullAnimated {
     Button bntSend, btnCancel, btnChange;
     ProgressBar loading, loading_global;
     TextView pay, shipment, tax, card_to, card_manage, total_to_pay;
-    String transaction_id, token, email;
+    String transaction_id, token, email, card_for_pay, card_for_tax;
     Double payNo, shipmentNo, taxNo, totalPayNo;
 
     public PayActivity() {
@@ -82,7 +86,7 @@ public class PayActivity extends CustomActivityFullAnimated {
     public void onClick(View v) {
         switch (v.getId()) {
             case (R.id.btnSend): {
-                registerPayment(transaction_id, email, token);
+                makeTransfers();
                 break;
             }
             case (R.id.btnCancel): {
@@ -127,8 +131,10 @@ public class PayActivity extends CustomActivityFullAnimated {
                                 pay.setText(json.getString("pay"));
                                 shipment.setText(json.getString("shipment"));
                                 tax.setText(json.getString("tax"));
-                                card_to.setText(json.getString("card_to"));
-                                card_manage.setText(json.has("card_manage") ? json.getString("card_manage") : "-");
+                                card_for_pay = json.getString("card_to");
+                                card_to.setText(card_for_pay);
+                                card_for_tax = json.has("card_manage") ? json.getString("card_manage") : "-";
+                                card_manage.setText(card_for_tax);
                                 payNo = json.getDouble("pay");
                                 shipmentNo = json.getDouble("shipment");
                                 taxNo = json.getDouble("tax");
@@ -184,6 +190,44 @@ public class PayActivity extends CustomActivityFullAnimated {
     }
 
     private void makeTransfers() {
+        String destination_card = card_to.getText().toString();
+        if (card_for_tax.equals("-")){
+            // la carretera es P2V
+            double importe_venta;
+            if (btnChange.getText().equals("Cambiar a CUC")){
+                importe_venta = (payNo+shipmentNo+taxNo);
+            }else{
+                importe_venta = ((payNo+shipmentNo+taxNo)/25);
+            }
+            USSDUtils.transferirTransfermovil(getApplicationContext(), card_for_pay, importe_venta);
+            SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
+                @Override
+                public void onSmsSent(Sms sms) {
+                    Log.d("SMS Sent: ", sms.getMsg());
+                }
+
+                @Override
+                public void onSmsReceived(Sms sms) {
+                    Log.d("SMS received: ", sms.getAddress()+": "+sms.getMsg());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+
+                    builder.setMessage(sms.getMsg())
+                            .setTitle(sms.getAddress());
+                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK button
+                            registerPayment(transaction_id, email, token);
+
+                            SmsRadar.stopSmsRadarService(getApplicationContext());
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }
+            });
+        }
 
     }
 
@@ -213,6 +257,8 @@ public class PayActivity extends CustomActivityFullAnimated {
                                 builder2.setNegativeButton("Ir al listado", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         // TODO: enviar al usuario a la activity de listado
+                                        goActivity(null, PayActivity.this, MainActivity.class);
+
                                     }
                                 });
 

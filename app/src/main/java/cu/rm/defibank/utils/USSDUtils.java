@@ -94,4 +94,60 @@ public class USSDUtils extends Application {
             }
         });
     }
+
+    public static void salirTransfermovil(final Context context) {
+
+        final USSDApi ussdApi = USSDController.getInstance(context);
+        ussdApi.callUSSDInvoke(GlobalPrefs.SALIR_TRANSFERMOVIL_USSD, getMap(), new USSDController.CallbackInvoke() {
+            @Override
+            public void responseInvoke(String message) {
+                // message has the response string data
+
+            }
+
+            @Override
+            public void over(String message) {
+                // message has the response string data from USSD or error
+                // response no have input text, NOT SEND ANY DATA
+                Log.d("USSD Salir: ", message);
+
+            }
+        });
+    }
+
+    public static void transferirTransfermovil(final Context context, final String cuenta, final Double importe) {
+
+        final USSDApi ussdApi = USSDController.getInstance(context);
+        ussdApi.callUSSDInvoke(GlobalPrefs.AUTENTICAR_TRANSFERMOVIL_USSD, getMap(), new USSDController.CallbackInvoke() {
+            @Override
+            public void responseInvoke(String message) {
+                // message has the response string data
+                String dataToSend = cuenta; // <- send "data" into USSD's input text
+                ussdApi.send(dataToSend,new USSDController.CallbackMessage(){
+                    @Override
+                    public void responseMessage(String message) {
+                        // message has the response string data from USSD
+                        Log.d("USSD Transferir - cuenta: ", message);
+                        ussdApi.send(String.valueOf(importe),new USSDController.CallbackMessage(){
+                            @Override
+                            public void responseMessage(String message) {
+                                // message has the response string data from USSD
+                                Log.d("USSD Tranferir - importe: ", message);
+
+                            }
+                        });
+
+                    }
+                });
+            }
+
+            @Override
+            public void over(String message) {
+                // message has the response string data from USSD or error
+                // response no have input text, NOT SEND ANY DATA
+                Log.d("USSD Transferir - resultado: ", message);
+
+            }
+        });
+    }
 }
