@@ -201,6 +201,7 @@
                 android:id="@+id/bank_bandec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:drawableTop="@drawable/ic_bandec"
                 android:text="BANDEC" />
 
@@ -208,6 +209,7 @@
                 android:id="@+id/bank_bpa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:drawableTop="@drawable/ic_bpa"
                 android:text="BPA" />
 
@@ -215,6 +217,7 @@
                 android:id="@+id/bank_banmet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:drawableTop="@drawable/ic_bm"
                 android:text="BanMet" />
         </RadioGroup>

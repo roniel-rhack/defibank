@@ -126,7 +126,7 @@
             android:layout_marginTop="16dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
-            android:text="Tarjeta destino:"
+            android:text="Tarjeta vendedor:"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -156,7 +156,7 @@
             android:layout_marginTop="16dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
-            android:text="Tarjeta comisión:"
+            android:text="Tarjeta impuesto:"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_to_label"
@@ -265,7 +265,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toEndOf="@+id/card_manage_label"
-            app:layout_constraintTop_toBottomOf="@+id/importe_envio"
+            app:layout_constraintTop_toBottomOf="@+id/importe_comision"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -276,11 +276,12 @@
             android:layout_marginTop="16dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
-            android:text="Impuesto:"
+            android:text="Descuento:"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/importe_envio_label"
+            app:layout_constraintTop_toBottomOf="@+id/importe_comision_label"
             tools:ignore="HardcodedText" />
+
 
         <cu.rm.defibank.components.CurrencyTextView
             android:id="@+id/importe_total"
@@ -322,7 +323,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/importe_comision_label" />
+            app:layout_constraintTop_toBottomOf="@+id/descuento_label" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -340,7 +341,7 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="24dp"
             android:drawableStart="@android:drawable/ic_popup_sync"
             android:fontFamily="@font/basic"
             android:paddingHorizontal="20dp"
@@ -350,9 +351,10 @@
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/btnCancel"
             app:layout_constraintEnd_toStartOf="@+id/btnSend"
+            app:layout_constraintHorizontal_bias="0.482"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/importe_total_label"
-            app:layout_constraintVertical_bias="0.8"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -360,7 +362,7 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="20dp"
             android:drawableStart="@android:drawable/ic_menu_send"
             android:fontFamily="@font/basic"
@@ -372,7 +374,7 @@
             app:layout_constraintBottom_toTopOf="@+id/btnCancel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/importe_total_label"
-            app:layout_constraintVertical_bias="0.8"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="HardcodedText" />
 
         <Button
