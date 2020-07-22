@@ -62,12 +62,12 @@ public abstract class CustomActivityFullAnimated extends CustomActivity {
     }
 
     @Override
-    protected void animationsOut(View v) {
+    protected void animationsOut() {
         animationsClearOut();
         if (labelUi != null)
-            labelUi.setAnimation(AnimationUtils.loadAnimation(v.getContext(), R.anim.label_ui_out));
+            labelUi.setAnimation(AnimationUtils.loadAnimation(this, R.anim.label_ui_out));
         if (container != null)
-            container.setAnimation(AnimationUtils.loadAnimation(v.getContext(), R.anim.container_out));
+            container.setAnimation(AnimationUtils.loadAnimation(this, R.anim.container_out));
     }
 
     @Override

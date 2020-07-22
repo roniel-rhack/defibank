@@ -164,8 +164,8 @@ public class AuthTransActivity extends CustomActivityAnimated {
     }
 
     @Override
-    protected void animationsOut(View v) {
-        super.animationsOut(v);
+    protected void animationsOut() {
+        super.animationsOut();
         logoTransfer.setAnimation(AnimationUtils.loadAnimation(this, R.anim.logo_right_out));
     }
 

@@ -62,6 +62,6 @@ public class MainActivity extends CustomActivityFullAnimated implements AdapterV
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent detailsIntent = new Intent(MainActivity.this, DetailsActivity.class);
         detailsIntent.putExtra("pay", datos.get(position));
-        goActivity(view, detailsIntent);
+        goActivity(detailsIntent);
     }
 }
