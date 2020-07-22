@@ -96,11 +96,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/borderCenter">
+        app:layout_constraintTop_toBottomOf="@+id/borderCenter"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/card_to"
