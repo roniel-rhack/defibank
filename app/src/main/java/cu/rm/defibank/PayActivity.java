@@ -257,7 +257,7 @@ public class PayActivity extends CustomActivityFullAnimated {
                                 builder2.setNegativeButton("Ir al listado", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         // TODO: enviar al usuario a la activity de listado
-                                        goActivity(null, PayActivity.this, MainActivity.class);
+                                        goActivity(PayActivity.this, MainActivity.class);
 
                                     }
                                 });

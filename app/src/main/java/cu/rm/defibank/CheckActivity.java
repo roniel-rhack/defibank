@@ -52,7 +52,7 @@ public class CheckActivity extends CustomActivityAnimated {
                 break;
             }
             case R.id.btnCancel:
-                goActivity(v, CheckActivity.this, RegisterActivity.class);
+                goActivity(CheckActivity.this, RegisterActivity.class);
                 break;
 
         }
