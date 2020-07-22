@@ -38,7 +38,7 @@ public abstract class CustomActivity extends AppCompatActivity implements View.O
 
     protected abstract void animationsIn();
 
-    protected void animationsOut(View v) {
+    protected void animationsOut() {
         animationsClearOut();
     }
 
@@ -55,10 +55,10 @@ public abstract class CustomActivity extends AppCompatActivity implements View.O
             }
         }, 300);
 
-        animationsOut(v);
+        animationsOut();
     }
 
-    protected void goActivity(View v, final Intent intent) {
+    protected void goActivity(final Intent intent) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -68,6 +68,6 @@ public abstract class CustomActivity extends AppCompatActivity implements View.O
             }
         }, 300);
 
-        animationsOut(v);
+        animationsOut();
     }
 }
