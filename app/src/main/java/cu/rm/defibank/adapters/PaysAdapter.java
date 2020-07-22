@@ -34,7 +34,7 @@ public class PaysAdapter extends BaseAdapter {
         ((TextView)view.findViewById(R.id.tips)).setText("20.55");
         ((TextView)view.findViewById(R.id.discount)).setText("185.99");
         if (position == 0)
-            view.setPadding(0, 90, 0, 0);
+            view.setPadding(0, 80, 0, 0);
         return view;
     }
 

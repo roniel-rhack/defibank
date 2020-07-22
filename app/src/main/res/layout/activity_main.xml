@@ -48,7 +48,7 @@
     <View
         android:id="@+id/borderCenter"
         android:layout_width="wrap_content"
-        android:layout_height="265dp"
+        android:layout_height="210dp"
         android:background="@drawable/ic_headerbottom"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,13 +58,13 @@
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="195dp"
+        android:layout_marginTop="152dp"
         android:fontFamily="@font/aldrich"
         android:text="Pagos"
         android:textColor="#000000"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.452"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
@@ -72,7 +72,7 @@
     <View
         android:id="@+id/borderUp"
         android:layout_width="wrap_content"
-        android:layout_height="222dp"
+        android:layout_height="180dp"
         android:background="@drawable/ic_wavetop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
     <View
         android:id="@+id/borderRight"
         android:layout_width="126dp"
-        android:layout_height="163dp"
+        android:layout_height="132dp"
         android:background="@drawable/ic_wavetopright"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -92,13 +92,14 @@
         android:id="@+id/slogan_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="9dp"
         android:fontFamily="@font/aldrich"
         android:text="monetiza tu mundo"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_label"
         tools:ignore="HardcodedText" />
@@ -107,14 +108,15 @@
         android:id="@+id/name_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="9dp"
         android:fontFamily="@font/aldrich"
         android:text="DefiBank"
         android:textColor="#FFFFFF"
-        android:textSize="35sp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="HardcodedText" />
@@ -124,6 +126,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="231dp" />
+        app:layout_constraintGuide_begin="179dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
