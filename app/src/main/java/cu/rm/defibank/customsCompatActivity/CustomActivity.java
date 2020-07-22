@@ -44,7 +44,7 @@ public abstract class CustomActivity extends AppCompatActivity implements View.O
 
     protected abstract void animationsClearOut();
 
-    protected void goActivity(View v, Context packageContext, Class<?> cls) {
+    protected void goActivity(Context packageContext, Class<?> cls) {
         final Intent mainIntent = new Intent(packageContext, cls);
         new Handler().postDelayed(new Runnable() {
             @Override
