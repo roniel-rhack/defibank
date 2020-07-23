@@ -11,10 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cu.rm.defibank.adapters.PaysAdapter;
-import cu.rm.defibank.customsCompatActivity.CustomActivityFullAnimated;
+import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
 import cu.rm.defibank.objects.Pay;
 
-public class MainActivity extends CustomActivityFullAnimated implements AdapterView.OnItemClickListener {
+public class MainActivity extends CustomActivityAnimated implements AdapterView.OnItemClickListener {
 
     ListView listTransactions;
     List<Pay> datos;
@@ -25,8 +25,8 @@ public class MainActivity extends CustomActivityFullAnimated implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         datos = new LinkedList<>();
-        datos.add(new Pay("RR", "App Tray", (float) 19480.29, (float) 233, (float) 29384, (float) 2908, (float) 322));
-        datos.add(new Pay("RR", "App Tray", (float) 19480.29, (float) 233, (float) 29384, (float) 2908, (float) 322));
+        datos.add(new Pay("RR", "App Tray", (float) 19480.29, (float) 485.38, (float) 879.8, (float) 437.48, (float) 978.48));
+        datos.add(new Pay("RR", "App Revolico", (float) 3847.75, (float) 233, (float) 29384, (float) 2908, (float) 322));
         datos.add(new Pay("RR", "App Tray", (float) 19480.29, (float) 233, (float) 29384, (float) 2908, (float) 322));
         datos.add(new Pay("RR", "App Tray", (float) 19480.29, (float) 233, (float) 29384, (float) 2908, (float) 322));
         datos.add(new Pay("RR", "App Tray", (float) 19480.29, (float) 233, (float) 29384, (float) 2908, (float) 322));
