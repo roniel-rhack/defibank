@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public class ItemsAdapter extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
     Context context;
-    List<Item> datos;
+    Item[] datos;
 
-    public ItemsAdapter(Context context, List<Item> datos) {
+    public ItemsAdapter(Context context,  Item[] datos) {
         this.context = context;
         this.datos = datos;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -26,17 +27,22 @@ public class ItemsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final View view = inflater.inflate(R.layout.list_element_item, null);
+        ((TextView) view.findViewById(R.id.title)).setText(datos[position].getTitle());
+        ((TextView) view.findViewById(R.id.description)).setText(datos[position].getDescription());
+        ((TextView) view.findViewById(R.id.total)).setText(datos[position].getCost() + "");
+        ((TextView) view.findViewById(R.id.discount)).setText(datos[position].getDiscount() + "");
+        ((TextView) view.findViewById(R.id.tips)).setText(datos[position].getTip() + "");
         return view;
     }
 
     @Override
     public int getCount() {
-        return datos.size();
+        return datos.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return datos.get(position);
+        return datos[position];
     }
 
     @Override

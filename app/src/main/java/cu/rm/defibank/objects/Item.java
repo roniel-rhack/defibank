@@ -5,11 +5,11 @@ import java.io.Serializable;
 public class Item implements Serializable {
     protected String title;
     protected String description;
-    protected String tip;
-    protected String discount;
-    protected String cost;
+    protected float tip;
+    protected float discount;
+    protected float cost;
 
-    public Item(String title, String description, String tip, String discount, String cost) {
+    public Item(String title, String description, float tip, float discount, float cost) {
         this.title = title;
         this.description = description;
         this.tip = tip;
@@ -33,27 +33,27 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public String getTip() {
+    public float getTip() {
         return tip;
     }
 
-    public void setTip(String tip) {
+    public void setTip(float tip) {
         this.tip = tip;
     }
 
-    public String getDiscount() {
+    public float getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(float discount) {
         this.discount = discount;
     }
 
-    public String getCost() {
+    public float getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(float cost) {
         this.cost = cost;
     }
 }
