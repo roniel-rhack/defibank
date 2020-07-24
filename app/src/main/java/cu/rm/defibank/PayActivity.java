@@ -379,7 +379,7 @@ public class PayActivity extends CustomActivityAnimated {
 
     public void cancelPayment(final String transaction_id, final String token) {
         String url = String.format("https://josue95.pythonanywhere.com/api/dev/cancel_payment/?transaction_id=%s", transaction_id);
-        Log.d("init", "iniciando el metodo register_payment");
+        Log.d("init", "iniciando el metodo cancel_payment");
         StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
