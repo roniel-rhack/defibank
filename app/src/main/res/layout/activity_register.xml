@@ -142,7 +142,6 @@
             android:paddingHorizontal="30dp"
             android:paddingVertical="15dp"
             android:text="Enviar registro"
-            android:textSize="16sp"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

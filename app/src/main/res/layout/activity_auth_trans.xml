@@ -49,6 +49,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/logoTransfermovil"
+        android:layout_width="80dp"
+        android:layout_height="89dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="logo transfermovil"
+        app:layout_constraintBottom_toBottomOf="@+id/borderCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.681"
+        app:layout_constraintStart_toEndOf="@+id/label"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.886"
+        app:srcCompat="@drawable/ic_logo_transfermovil"
+        tools:ignore="HardcodedText" />
+
     <TextView
         android:id="@+id/slogan_label"
         android:layout_width="wrap_content"
@@ -80,21 +95,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
-
-    <ImageView
-        android:id="@+id/logoTransfermovil"
-        android:layout_width="80dp"
-        android:layout_height="89dp"
-        android:layout_marginBottom="8dp"
-        android:contentDescription="logo transfermovil"
-        app:layout_constraintBottom_toBottomOf="@+id/borderCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.681"
-        app:layout_constraintStart_toEndOf="@+id/label"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.886"
-        app:srcCompat="@drawable/ic_logo_transfermovil"
         tools:ignore="HardcodedText" />
 
     <ScrollView
@@ -138,7 +138,6 @@
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="15dp"
                 android:text="Autenticarse"
-                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputCodeAct"
@@ -183,7 +182,6 @@
                 android:fontFamily="@font/basic"
                 android:paddingHorizontal="15dp"
                 android:text="Cancelar Registro"
-                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

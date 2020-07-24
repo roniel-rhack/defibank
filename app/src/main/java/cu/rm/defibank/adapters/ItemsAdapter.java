@@ -25,7 +25,7 @@ public class ItemsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final View view = inflater.inflate(R.layout.list_element_pay, null);
+        final View view = inflater.inflate(R.layout.list_element_item, null);
         return view;
     }
 
