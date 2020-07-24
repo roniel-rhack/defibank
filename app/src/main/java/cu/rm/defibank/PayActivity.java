@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
+import cu.rm.defibank.utils.CheckMessages;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.USSDUtils;
 import cu.rm.defibank.utils.VolleyQueue;
@@ -266,6 +267,7 @@ public class PayActivity extends CustomActivityAnimated {
 
                                 @Override
                                 public void onSmsReceived(Sms sms) {
+                                    final Sms smsCopy = sms;
                                     Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
                                     // TODO: validar si el mensaje es de PagoXMovil
 
@@ -277,6 +279,7 @@ public class PayActivity extends CustomActivityAnimated {
                                         public void onClick(DialogInterface dialog, int id) {
                                             // User clicked OK button
                                             SmsRadar.stopSmsRadarService(getApplicationContext());
+
                                             registerPayment(transaction_id, email, token);
                                         }
                                     });

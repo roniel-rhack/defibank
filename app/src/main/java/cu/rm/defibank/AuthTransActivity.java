@@ -27,6 +27,7 @@ import com.tuenti.smsradar.SmsRadar;
 import java.util.List;
 
 import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
+import cu.rm.defibank.utils.CheckMessages;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.USSDUtils;
 
@@ -73,6 +74,8 @@ public class AuthTransActivity extends CustomActivityAnimated {
 
                     @Override
                     public void onSmsReceived(Sms sms) {
+                        final Sms smsCopy = sms;
+
                         Log.d("SMS received: ", sms.getAddress()+": "+sms.getMsg());
                         AlertDialog.Builder builder = new AlertDialog.Builder(AuthTransActivity.this);
 
@@ -81,8 +84,14 @@ public class AuthTransActivity extends CustomActivityAnimated {
                         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User clicked OK button
-                                SmsRadar.stopSmsRadarService(getApplicationContext());
-                                goActivity(AuthTransActivity.this, PayActivity.class);
+                                if (CheckMessages.checkAddress(smsCopy.getAddress()) && CheckMessages.checkAuthenticationMessage(smsCopy.getMsg())){
+                                    SmsRadar.stopSmsRadarService(getApplicationContext());
+                                    goActivity(AuthTransActivity.this, PayActivity.class);
+                                }else{
+                                    btnSend.setVisibility(View.VISIBLE);
+                                    loading.setVisibility(View.INVISIBLE);
+                                }
+
                             }
                         });
 
