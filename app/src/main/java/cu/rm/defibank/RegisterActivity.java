@@ -3,6 +3,7 @@ package cu.rm.defibank;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -59,11 +60,17 @@ public class RegisterActivity extends CustomActivityFullAnimated {
             {
                 String name = nameEdit.getText().toString();
                 String email = emailEdit.getText().toString();
-                // TODO: hacer las validaciones pertinentes
-                Log.d("Registration", name+" "+email);
-                btnSend.setVisibility(View.INVISIBLE);
-                loading.setVisibility(View.VISIBLE);
-                registerUser(email, name);
+                if (TextUtils.isEmpty(name)){
+                    nameEdit.setError("Este campo no puede estar vacío.");
+                } else if (TextUtils.isEmpty(email)){
+                    emailEdit.setError("Este campo no puede estar vacío.");
+                }else{
+                    Log.d("Registration", name+" "+email);
+                    btnSend.setVisibility(View.INVISIBLE);
+                    loading.setVisibility(View.VISIBLE);
+                    registerUser(email, name);
+                }
+
                 break;
             }
         }
@@ -94,7 +101,7 @@ public class RegisterActivity extends CustomActivityFullAnimated {
                                 startActivity(intent);
                                 finish();
                             }else if (json.getString("status").equals("1002")){
-                                Toast.makeText(getApplicationContext(), "El registro falló, intente más tarde.",
+                                Toast.makeText(getApplicationContext(), json.getString("message"),
                                         Toast.LENGTH_SHORT)
                                         .show();
                             }
