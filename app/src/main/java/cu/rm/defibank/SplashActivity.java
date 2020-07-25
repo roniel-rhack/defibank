@@ -1,6 +1,7 @@
 package cu.rm.defibank;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.app.ActivityCompat;
@@ -112,7 +114,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
         BiometricManager biometricManager = BiometricManager.from(getApplicationContext());
         switch (biometricManager.canAuthenticate()) {
             case BiometricManager.BIOMETRIC_SUCCESS:
-                Log.d("MY_APP_TAG", "App can authenticate using biometrics.");
+                Log.d("DefiBank", "App can authenticate using biometrics.");
                 executor = ContextCompat.getMainExecutor(getApplicationContext());
                 biometricPrompt = new BiometricPrompt(SplashActivity.this,
                         executor, new BiometricPrompt.AuthenticationCallback() {
@@ -183,13 +185,29 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                 break;
             //TODO: Que hacer si el telefono no soporta ningun tipo de autenticacion biometrica?
             case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
-                Log.e("MY_APP_TAG", "No biometric features available on this device.");
+                Log.e("DefiBank", "No biometric features available on this device.");
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(SplashActivity.this);
+
+                builder2.setMessage("Su dispositivo no cuenta con autenticación biométrica, ¿desea crear una clave de acceso?.")
+                        .setTitle("Biometría no soportada");
+                builder2.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        startActivityForResult(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), 0);
+                    }
+                });
+                builder2.setNegativeButton("No", (dialog, id)->{
+
+                });
+
+                AlertDialog dialog2 = builder2.create();
+                dialog2.show();
                 break;
             case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
-                Log.e("MY_APP_TAG", "Biometric features are currently unavailable.");
+                Log.e("DefiBank", "Biometric features are currently unavailable.");
                 break;
             case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
-                Log.e("MY_APP_TAG", "The user hasn't associated " +
+                Log.e("DefiBank", "The user hasn't associated " +
                         "any biometric credentials with their account.");
                 break;
         }

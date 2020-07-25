@@ -9,7 +9,7 @@ public class CheckMessages {
      * @return boolean Verdadero si el mensaje es satisfactorio
      */
     public static boolean checkAuthenticationMessage(String message) {
-        return message.contains("Usted se ha autenticado") && (message.contains("correctamente") || message.contains("satisfactoriamente"));
+        return message.toLowerCase().contains("Usted se ha autenticado");
     }
 
     public static boolean checkAddress(String address){
