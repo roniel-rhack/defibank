@@ -73,7 +73,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                     // Permission has already been granted
 //                    Continue();
                     // para pruebas de transfermovil
-                    Intent i = new Intent(SplashActivity.this, ProtectActivity.class);
+                    Intent i = new Intent(SplashActivity.this, AuthTransActivity.class);
                     startActivity(i);
                     finish();
                 }

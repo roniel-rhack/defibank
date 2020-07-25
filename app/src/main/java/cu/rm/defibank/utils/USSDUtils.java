@@ -73,13 +73,13 @@ public class USSDUtils extends Application {
         String code_ussd = GlobalPrefs.AUTENTICAR_TRANSFERMOVIL_USSD;
         switch (banco){
             case BPA:
-                code_ussd.replaceFirst("BANCO", GlobalPrefs.BANCO_BPA_USSD);
+                code_ussd = code_ussd.replaceFirst("BANCO", GlobalPrefs.BANCO_BPA_USSD);
                 break;
             case BANDEC:
-                code_ussd.replaceFirst("BANCO", GlobalPrefs.BANCO_BANDEC_USSD);
+                code_ussd = code_ussd.replaceFirst("BANCO", GlobalPrefs.BANCO_BANDEC_USSD);
                 break;
             case BANMET:
-                code_ussd.replaceFirst("BANCO", GlobalPrefs.BANCO_BANMET_USSD);
+                code_ussd = code_ussd.replaceFirst("BANCO", GlobalPrefs.BANCO_BANMET_USSD);
                 break;
         }
         ussdApi.callUSSDInvoke(code_ussd, getMap(), new USSDController.CallbackInvoke() {
@@ -139,12 +139,12 @@ public class USSDUtils extends Application {
                     @Override
                     public void responseMessage(String message) {
                         // message has the response string data from USSD
-                        Log.d("USSD Transferir - cuenta: ", message);
+                        Log.d("USSD Trans - cuenta: ", message);
                         ussdApi.send(String.valueOf(importe),new USSDController.CallbackMessage(){
                             @Override
                             public void responseMessage(String message) {
                                 // message has the response string data from USSD
-                                Log.d("USSD Tranferir - importe: ", message);
+                                Log.d("USSD Tranf - importe: ", message);
 
                             }
                         });
@@ -157,7 +157,7 @@ public class USSDUtils extends Application {
             public void over(String message) {
                 // message has the response string data from USSD or error
                 // response no have input text, NOT SEND ANY DATA
-                Log.d("USSD Transferir - resultado: ", message);
+                Log.d("USSD Transf - result: ", message);
 
             }
         });
