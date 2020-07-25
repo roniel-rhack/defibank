@@ -13,7 +13,8 @@ public class CheckMessages {
     }
 
     public static boolean checkTransferMethodMessage(String message) {
-        return message.toLowerCase().contains("Usted se ha autenticado".toLowerCase());
+        return message.toLowerCase().contains("realizado una transferencia".toLowerCase())
+                || message.toLowerCase().contains("Transferencia fue completada".toLowerCase());
     }
 
     public static boolean checkAddress(String address){
