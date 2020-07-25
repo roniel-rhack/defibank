@@ -9,10 +9,11 @@ public class CheckMessages {
      * @return boolean Verdadero si el mensaje es satisfactorio
      */
     public static boolean checkAuthenticationMessage(String message) {
-        return message.toLowerCase().contains("Usted se ha autenticado");
+        return message.toLowerCase().contains("Usted se ha autenticado".toLowerCase());
     }
 
     public static boolean checkAddress(String address){
-        return address.equals("PAGOxMOVIL");
+        return address.toLowerCase().equals("PAGOxMOVIL".toLowerCase());
     }
+
 }

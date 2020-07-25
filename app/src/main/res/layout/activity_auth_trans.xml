@@ -133,7 +133,7 @@
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:fontFamily="@font/basic"
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="15dp"
@@ -200,7 +200,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/msg">
 
                 <RadioButton
-                    android:id="@+id/bank_bandec"
+                    android:id="@+id/banco_bandec"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableTop="@drawable/ic_bandec"
@@ -208,7 +208,7 @@
                     tools:ignore="HardcodedText" />
 
                 <RadioButton
-                    android:id="@+id/bank_bpa"
+                    android:id="@+id/banco_bpa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -217,7 +217,7 @@
                     tools:ignore="HardcodedText" />
 
                 <RadioButton
-                    android:id="@+id/bank_banmet"
+                    android:id="@+id/banco_banmet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"

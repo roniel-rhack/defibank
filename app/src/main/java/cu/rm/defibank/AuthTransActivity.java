@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -40,6 +41,9 @@ public class AuthTransActivity extends CustomActivityAnimated {
     EditText codeInput;
     String codeTransf;
     ProgressBar loading;
+    RadioGroup radioBancos;
+
+    GlobalPrefs.BANCOS banco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,55 +55,83 @@ public class AuthTransActivity extends CustomActivityAnimated {
     protected void setOnClickListeners() {
         btnCancel.setOnClickListener(this);
         btnSend.setOnClickListener(this);
+        radioBancos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.banco_bpa:
+                        banco = GlobalPrefs.BANCOS.BPA;
+                        break;
+                    case R.id.banco_bandec:
+                        banco = GlobalPrefs.BANCOS.BANDEC;
+                        break;
+                    case R.id.banco_banmet:
+                        banco = GlobalPrefs.BANCOS.BANMET;
+                        break;
+                }
+            }
+        });
     }
 
     @Override
     public void onClick(final View v) {
         switch (v.getId()) {
             case R.id.btnSend:
-                codeTransf = codeInput.getText().toString();
-                //TODO: Hacer las validaciones oportunas
-                SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putInt("registrationStep", 3);
-                editor.putString("codeTransfermovil", codeTransf);
-                editor.commit();
+                if (!codeInput.getText().toString().equals("")) {
+                    codeTransf = codeInput.getText().toString();
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putInt("registrationStep", 3);
+                    editor.putString("codeTransfermovil", codeTransf);
+                    editor.commit();
 
-                autenticarTransfermovil();
-                SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
-                    @Override
-                    public void onSmsSent(Sms sms) {
-                        Log.d("SMS Sent: ", sms.getMsg());
-                    }
+                    autenticarTransfermovil();
+                    SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
+                        @Override
+                        public void onSmsSent(Sms sms) {
+                            Log.d("SMS Sent: ", sms.getMsg());
+                        }
 
-                    @Override
-                    public void onSmsReceived(Sms sms) {
-                        final Sms smsCopy = sms;
+                        @Override
+                        public void onSmsReceived(Sms sms) {
+                            final Sms smsCopy = sms;
+                            Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
 
-                        Log.d("SMS received: ", sms.getAddress()+": "+sms.getMsg());
-                        AlertDialog.Builder builder = new AlertDialog.Builder(AuthTransActivity.this);
+                            if (CheckMessages.checkAddress(smsCopy.getAddress()))
+                                Log.d("check adrress", "true");
+                            else Log.d("check adrress", "false");
 
-                        builder.setMessage(sms.getMsg())
-                                .setTitle(sms.getAddress());
-                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // User clicked OK button
-                                if (CheckMessages.checkAddress(smsCopy.getAddress()) && CheckMessages.checkAuthenticationMessage(smsCopy.getMsg())){
-                                    SmsRadar.stopSmsRadarService(getApplicationContext());
-                                    goActivity(AuthTransActivity.this, PayActivity.class);
-                                }else{
-                                    btnSend.setVisibility(View.VISIBLE);
-                                    loading.setVisibility(View.INVISIBLE);
-                                }
+                            if (CheckMessages.checkAuthenticationMessage(smsCopy.getMsg()))
+                                Log.d("check msg", "true");
+                            else Log.d("check msg", "false");
+                            // TODO: FUTURE: Evitar que la notificacion del mensaje se muestre en el sistema para q no aparezca dos veces
 
+                            if (CheckMessages.checkAddress(smsCopy.getAddress()) && CheckMessages.checkAuthenticationMessage(smsCopy.getMsg())) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(AuthTransActivity.this);
+                                builder.setMessage(sms.getMsg())
+                                        .setTitle(sms.getAddress());
+                                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // User clicked OK button
+                                        SmsRadar.stopSmsRadarService(getApplicationContext());
+                                        Log.d("stop r", "radar is stopped");
+                                        goActivity(AuthTransActivity.this, PayActivity.class);
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            } else {
+                                btnSend.setVisibility(View.VISIBLE);
+                                btnCancel.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.INVISIBLE);
                             }
-                        });
 
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
+                        }
+                    });
+                } else {
+                    codeInput.setError("Este campo es obligatorio.");
+                }
 
-                    }
-                });
 //                goActivity(v, AuthTransActivity.this, MainActivity.class);
                 break;
             case R.id.btnCancel:
@@ -110,19 +142,20 @@ public class AuthTransActivity extends CustomActivityAnimated {
 
     // autenticacion de pruba para saber si el codigo introducido por el cliente es correcto
 
-    private void autenticarTransfermovil(){
+    private void autenticarTransfermovil() {
         // TODO: esta es la forma de comprobar que el permiso de accesibilidad (PARA USSD) esta otorgado, hay que decirle al usuario que lo active.
         boolean permisoAccesibilidad = isAccessibilityServiceEnabled(this, USSDService.class);
         System.out.println("Accesibilidad: " + permisoAccesibilidad);
-        if (permisoAccesibilidad){
+        if (permisoAccesibilidad) {
             btnSend.setVisibility(View.INVISIBLE);
+            btnCancel.setVisibility(View.INVISIBLE);
             loading.setVisibility(View.VISIBLE);
-            USSDUtils.autenticarTransfermovil(getApplicationContext(), codeTransf);
+            USSDUtils.autenticarTransfermovil(getApplicationContext(), codeTransf, banco);
 
-        }else{
+        } else {
             AlertDialog.Builder builder2 = new AlertDialog.Builder(AuthTransActivity.this);
 
-            builder2.setMessage("Usted debe autorizar a la APP para que pueda utilizar los códigos USSD.")
+            builder2.setMessage("Usted debe autorizar a la APP DefiBank para que pueda utilizar los códigos USSD.")
                     .setTitle("Permiso de accesibilidad");
             builder2.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -163,6 +196,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
         btnSend = findViewById(R.id.btnSend);
         codeInput = findViewById(R.id.inputCodeAct);
         loading = findViewById(R.id.progressBar2);
+        radioBancos = findViewById(R.id.banco_sel);
     }
 
     @Override
