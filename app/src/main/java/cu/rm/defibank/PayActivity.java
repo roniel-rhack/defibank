@@ -73,12 +73,12 @@ public class PayActivity extends CustomActivityAnimated {
         bntSend = findViewById(R.id.btnSend);
         btnCancel = findViewById(R.id.btnCancel);
         loading = findViewById(R.id.progressBarLoading);
-        pay = findViewById(R.id.importe_product);
-        shipment = findViewById(R.id.importe_envio);
-        tax = findViewById(R.id.importe_comision);
+        pay = findViewById(R.id.importe_total);
+        shipment = findViewById(R.id.envio);
+        tax = findViewById(R.id.impuesto);
         card_to = findViewById(R.id.card_to);
         card_manage = findViewById(R.id.card_manage);
-        total_to_pay = findViewById(R.id.importe_total);
+        total_to_pay = findViewById(R.id.total);
         loading_global = findViewById(R.id.progressBar_global);
         btnChange = findViewById(R.id.btnChange);
     }
