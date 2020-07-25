@@ -28,7 +28,7 @@ public class PaysAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final View view = inflater.inflate(R.layout.list_element_pay, null);
         ((TextView) view.findViewById(R.id.app_name)).setText(datos.get(position).getApplication());
-        ((TextView) view.findViewById(R.id.total)).setText(datos.get(position).getTotal() + "");
+        ((TextView) view.findViewById(R.id.total)).setText(datos.get(position).getTotal() + datos.get(position).getShipment() + datos.get(position).getTaxs() + "");
         ((TextView) view.findViewById(R.id.shipment)).setText(datos.get(position).getShipment() + "");
         ((TextView) view.findViewById(R.id.taxs)).setText(datos.get(position).getTaxs() + "");
         ((TextView) view.findViewById(R.id.tips)).setText(datos.get(position).getTips() + "");
