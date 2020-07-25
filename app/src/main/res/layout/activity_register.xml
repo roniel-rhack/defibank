@@ -191,7 +191,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:background="@android:color/transparent"
-                android:text="Por favor, espere mientras verificamos su código de activacion"
+                android:text="Enviando petición de registro."
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

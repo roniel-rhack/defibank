@@ -99,9 +99,7 @@ public class RegisterActivity extends CustomActivityFullAnimated {
                                 editor.putString("email", email);
                                 editor.putString("name", name);
                                 editor.commit();
-                                Intent intent = new Intent(RegisterActivity.this, CheckActivity.class);
-                                startActivity(intent);
-                                finish();
+                                goActivity(RegisterActivity.this, CheckActivity.class);
                             }else if (json.getString("status").equals("1002")){
                                 Toast.makeText(getApplicationContext(), json.getString("message"),
                                         Toast.LENGTH_SHORT)

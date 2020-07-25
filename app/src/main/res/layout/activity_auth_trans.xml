@@ -173,7 +173,7 @@
                 tools:context=".AuthTransActivity">
 
                 <ProgressBar
-                    android:id="@+id/progressBarLoading"
+                    android:id="@+id/progressBar"
                     style="?android:attr/progressBarStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
                     android:text="Esperando mensaje de confirmación"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/progressBarLoading"
+                    app:layout_constraintTop_toBottomOf="@+id/progressBar"
                     tools:ignore="HardcodedText" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
