@@ -238,6 +238,7 @@
             android:layout_marginTop="10dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
+            android:textSize="16sp"
             android:text="IMPORTE A PAGAR:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
