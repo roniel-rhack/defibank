@@ -159,7 +159,7 @@
                 android:layout_marginTop="10dp"
                 android:autofillHints="name"
                 android:fontFamily="@font/basic"
-                android:text="Tarjeta impuesto:"
+                android:text="Tarjeta comisión:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_to_label"
                 tools:ignore="HardcodedText" />
@@ -255,65 +255,6 @@
                 tools:ignore="HardcodedText" />
 
             <TextView
-                android:id="@+id/descuento_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:autofillHints="name"
-                android:fontFamily="@font/basic"
-                android:text="Descuento total:"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/impuesto_label"
-                tools:ignore="HardcodedText" />
-
-            <cu.rm.defibank.components.CurrencyTextView
-                android:id="@+id/descuento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:autofillHints="name"
-                android:fontFamily="@font/basic"
-                android:text="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/impuesto_label"
-                app:layout_constraintTop_toBottomOf="@+id/impuesto"
-                tools:ignore="HardcodedText" />
-
-
-            <TextView
-                android:id="@+id/propina_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:autofillHints="name"
-                android:fontFamily="@font/basic"
-                android:text="Propina total:"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/descuento_label"
-                tools:ignore="HardcodedText" />
-
-            <cu.rm.defibank.components.CurrencyTextView
-                android:id="@+id/propina"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:autofillHints="name"
-                android:fontFamily="@font/basic"
-                android:text="0"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/impuesto_label"
-                app:layout_constraintTop_toBottomOf="@+id/descuento"
-                tools:ignore="HardcodedText" />
-
-            <TextView
                 android:id="@+id/total_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -348,11 +289,11 @@
                 android:id="@+id/divider"
                 android:layout_width="409dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="8dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/propina_label" />
+                app:layout_constraintTop_toBottomOf="@+id/impuesto_label" />
 
             <ProgressBar
                 android:id="@+id/progressBarLoading"
