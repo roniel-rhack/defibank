@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
-import cu.rm.defibank.utils.CheckMessages;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.USSDUtils;
 import cu.rm.defibank.utils.VolleyQueue;
@@ -72,7 +71,7 @@ public class PayActivity extends CustomActivityAnimated {
         super.findViewByIds();
         bntSend = findViewById(R.id.btnSend);
         btnCancel = findViewById(R.id.btnCancel);
-        loading = findViewById(R.id.progressBar);
+        loading = findViewById(R.id.progressBarLoading);
         pay = findViewById(R.id.importe_product);
         shipment = findViewById(R.id.importe_envio);
         tax = findViewById(R.id.importe_comision);
