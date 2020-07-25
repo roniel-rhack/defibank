@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.activity.OnBackPressedCallback;
+
 import cu.rm.defibank.adapters.ItemsAdapter;
 import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
 import cu.rm.defibank.objects.Pay;
@@ -23,8 +25,22 @@ public class DetailsActivity extends CustomActivityAnimated {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
+
         intent = getIntent();
         extras = intent.getExtras();
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle the back button event
+                if (intent.hasExtra("listado"))
+                    goActivity(DetailsActivity.this, MainActivity.class);
+                else
+                    goActivity(DetailsActivity.this, PayActivity.class);
+
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, callback);
 
         assert extras != null;
         pay = (Pay) extras.getSerializable("pay");
@@ -32,12 +48,12 @@ public class DetailsActivity extends CustomActivityAnimated {
         assert pay != null;
         id.setText(pay.getTransactionId());
         app.setText(pay.getApplication());
-        importe_total.setText(String.format("%s", (pay.getDiscounts()+pay.getTotal()-pay.getTips())));
+        importe_total.setText(String.format("%s", (pay.getDiscounts() + pay.getTotal() - pay.getTips())));
         propina.setText(String.format("%s", pay.getTips()));
         envio.setText(String.format("%s", pay.getShipment()));
         impuesto.setText(String.format("%s", pay.getTaxs()));
         descuento.setText(String.format("%s", pay.getDiscounts()));
-        total_a_pagar.setText(String.format("%s", (pay.getTotal()+pay.getShipment()+pay.getTaxs())));
+        total_a_pagar.setText(String.format("%s", (pay.getTotal() + pay.getShipment() + pay.getTaxs())));
 
         list_items.setAdapter(new ItemsAdapter(this, pay.getItems()));
     }

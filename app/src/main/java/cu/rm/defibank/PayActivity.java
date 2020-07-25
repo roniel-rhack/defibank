@@ -262,7 +262,6 @@ public class PayActivity extends CustomActivityAnimated {
                 @Override
                 public void onSmsReceived(Sms sms) {
                     Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
-                    // TODO: validar si el mensaje es de PagoXMovil
                     if (CheckMessages.checkAddress(sms.getAddress()) && CheckMessages.checkTransferMethodMessage(sms.getMsg())) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
 
@@ -366,7 +365,6 @@ public class PayActivity extends CustomActivityAnimated {
                                 });
                                 builder2.setNegativeButton("Ir al listado", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        // TODO: enviar al usuario a la activity de listado
                                         goActivity(PayActivity.this, MainActivity.class);
 
                                     }
@@ -444,7 +442,7 @@ public class PayActivity extends CustomActivityAnimated {
                                 });
                                 builder2.setNegativeButton("Ir al listado", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        // TODO: enviar al usuario a la activity de listado
+                                        goActivity(PayActivity.this, MainActivity.class);
                                     }
                                 });
 

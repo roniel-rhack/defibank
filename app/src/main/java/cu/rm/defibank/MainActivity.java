@@ -74,6 +74,7 @@ public class MainActivity extends CustomActivityAnimated implements AdapterView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent detailsIntent = new Intent(MainActivity.this, DetailsActivity.class);
         detailsIntent.putExtra("pay", datos.get(position));
+        detailsIntent.putExtra("listado", true);
         goActivity(detailsIntent);
     }
 
