@@ -166,7 +166,7 @@ public class PayActivity extends CustomActivityAnimated {
                                             items.getJSONObject(j).getDouble("tip"), items.getJSONObject(j).getDouble("discount"),
                                             items.getJSONObject(j).getDouble("cost")));
                                 }
-                                payObject = new Pay(json.getString("transaction_id"), json.getString("application"), json.getDouble("pay"),
+                                payObject = new Pay(transaction_id, json.getString("application"), json.getDouble("pay"),
                                         json.getDouble("discounts"), json.getDouble("shipment"), json.getDouble("tax"), json.getDouble("tips"), itemsArray);
 
                             } else if (json.getString("status").equals("1002")) {
