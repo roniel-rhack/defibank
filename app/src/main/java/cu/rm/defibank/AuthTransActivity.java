@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.romellfudi.ussdlibrary.USSDService;
 import com.tuenti.smsradar.Sms;
@@ -40,7 +41,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
     ImageView logoTransfer;
     EditText codeInput;
     String codeTransf;
-    ProgressBar loading;
+    ConstraintLayout loading;
     RadioGroup radioBancos;
 
     GlobalPrefs.BANCOS banco = GlobalPrefs.BANCOS.BANDEC;
@@ -81,7 +82,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
                     codeTransf = codeInput.getText().toString();
                     SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putInt("registrationStep", 3);
+//                    editor.putInt("registrationStep", 3);
                     editor.putString("codeTransfermovil", codeTransf);
                     editor.commit();
 
