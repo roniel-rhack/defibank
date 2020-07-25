@@ -144,7 +144,6 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
     // autenticacion de pruba para saber si el codigo introducido por el cliente es correcto
 
     private void autenticarTransfermovil() {
-        // TODO: esta es la forma de comprobar que el permiso de accesibilidad (PARA USSD) esta otorgado, hay que decirle al usuario que lo active.
         boolean permisoAccesibilidad = isAccessibilityServiceEnabled(this, USSDService.class);
         System.out.println("Accesibilidad: " + permisoAccesibilidad);
         if (permisoAccesibilidad) {

@@ -38,7 +38,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
 
 
 //        Intent originalIntent = getIntent();
-        String sharedId = "defi-p7C9EGy50cgH5mncjF9P";//originalIntent.getStringExtra("transaction_id");
+        String sharedId = null;//"defi-p7C9EGy50cgH5mncjF9P";//originalIntent.getStringExtra("transaction_id");
         String token = "UyWCz7CL9tlYhp2bG2d3";
 
 
