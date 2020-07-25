@@ -98,13 +98,6 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
                             final Sms smsCopy = sms;
                             Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
 
-                            if (CheckMessages.checkAddress(smsCopy.getAddress()))
-                                Log.d("check adrress", "true");
-                            else Log.d("check adrress", "false");
-
-                            if (CheckMessages.checkAuthenticationMessage(smsCopy.getMsg()))
-                                Log.d("check msg", "true");
-                            else Log.d("check msg", "false");
                             // TODO: FUTURE: Evitar que la notificacion del mensaje se muestre en el sistema para q no aparezca dos veces
 
                             if (CheckMessages.checkAddress(smsCopy.getAddress()) && CheckMessages.checkAuthenticationMessage(smsCopy.getMsg())) {
