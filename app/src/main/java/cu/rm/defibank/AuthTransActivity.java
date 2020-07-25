@@ -43,7 +43,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
     ProgressBar loading;
     RadioGroup radioBancos;
 
-    GlobalPrefs.BANCOS banco;
+    GlobalPrefs.BANCOS banco = GlobalPrefs.BANCOS.BANDEC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

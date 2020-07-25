@@ -203,6 +203,7 @@
                     android:id="@+id/banco_bandec"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:drawableTop="@drawable/ic_bandec"
                     android:text="BANDEC"
                     tools:ignore="HardcodedText" />
