@@ -211,27 +211,38 @@ public class PayActivity extends CustomActivityAnimated {
                 @Override
                 public void onSmsReceived(Sms sms) {
                     Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
-                    if (CheckMessages.checkAddress(sms.getAddress()) && CheckMessages.check(sms.getMsg())) {
+                    if (CheckMessages.checkAddress(sms.getAddress()) && CheckMessages.checkTransferMethodMessage(sms.getMsg())) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
 
-                    }
-                    AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
-
-                    builder.setMessage(sms.getMsg())
-                            .setTitle(sms.getAddress());
-                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+                        builder.setMessage(sms.getMsg())
+                                .setTitle(sms.getAddress());
+                        builder.setPositiveButton("Ok", (dialog, id) -> {
                             // User clicked OK button
                             SmsRadar.stopSmsRadarService(getApplicationContext());
                             registerPayment(transaction_id, email, token);
-                        }
-                    });
+                        });
 
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else if (CheckMessages.checkAddress(sms.getAddress())) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+
+                        builder.setMessage(sms.getMsg())
+                                .setTitle(sms.getAddress());
+                        builder.setPositiveButton("Ok", (dialog, id) -> {
+                            // User clicked OK button
+                            SmsRadar.stopSmsRadarService(getApplicationContext());
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+
 
                 }
             });
         } else {
+            // si la forma de negocio es P2P
             final double importe_venta, importe_comision;
             if (btnChange.getText().equals("Cambiar a CUC")) {
                 importe_venta = (payNo + shipmentNo);
@@ -252,51 +263,76 @@ public class PayActivity extends CustomActivityAnimated {
                 public void onSmsReceived(Sms sms) {
                     Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
                     // TODO: validar si el mensaje es de PagoXMovil
+                    if (CheckMessages.checkAddress(sms.getAddress()) && CheckMessages.checkTransferMethodMessage(sms.getMsg())) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+                        builder.setMessage(sms.getMsg() + " A continuación se pagará la comisión.")
+                                .setTitle(sms.getAddress());
+                        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // se ejecuta la transferencia al negocio
+                                SmsRadar.stopSmsRadarService(getApplicationContext());
+                                USSDUtils.transferirTransfermovil(getApplicationContext(), card_for_tax, importe_comision);
+                                SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
+                                    @Override
+                                    public void onSmsSent(Sms sms) {
+                                        Log.d("SMS Sent: ", sms.getMsg());
+                                    }
 
-                    builder.setMessage(sms.getMsg() + " A continuación se pagará la comisión.")
-                            .setTitle(sms.getAddress());
-                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+                                    @Override
+                                    public void onSmsReceived(Sms sms) {
+                                        final Sms smsCopy = sms;
+                                        Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
+                                        if (CheckMessages.checkAddress(sms.getAddress()) && CheckMessages.checkTransferMethodMessage(sms.getMsg())) {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+
+                                            builder.setMessage(sms.getMsg())
+                                                    .setTitle(sms.getAddress());
+                                            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    // User clicked OK button
+                                                    SmsRadar.stopSmsRadarService(getApplicationContext());
+
+                                                    registerPayment(transaction_id, email, token);
+                                                }
+                                            });
+
+                                            AlertDialog dialog = builder.create();
+                                            dialog.show();
+                                        } else if (CheckMessages.checkAddress(sms.getAddress())) {
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+
+                                            builder.setMessage(sms.getMsg())
+                                                    .setTitle(sms.getAddress());
+                                            builder.setPositiveButton("Ok", (dialog, id) -> {
+                                                // User clicked OK button
+                                                SmsRadar.stopSmsRadarService(getApplicationContext());
+                                            });
+
+                                            AlertDialog dialog = builder.create();
+                                            dialog.show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else if (CheckMessages.checkAddress(sms.getAddress())) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+
+                        builder.setMessage(sms.getMsg())
+                                .setTitle(sms.getAddress());
+                        builder.setPositiveButton("Ok", (dialog, id) -> {
                             // User clicked OK button
                             SmsRadar.stopSmsRadarService(getApplicationContext());
-                            USSDUtils.transferirTransfermovil(getApplicationContext(), card_for_tax, importe_comision);
-                            SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
-                                @Override
-                                public void onSmsSent(Sms sms) {
-                                    Log.d("SMS Sent: ", sms.getMsg());
-                                }
+                        });
 
-                                @Override
-                                public void onSmsReceived(Sms sms) {
-                                    final Sms smsCopy = sms;
-                                    Log.d("SMS received: ", sms.getAddress() + ": " + sms.getMsg());
-                                    // TODO: validar si el mensaje es de PagoXMovil
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
 
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
-
-                                    builder.setMessage(sms.getMsg() + " A continuación se pagará la comisión.")
-                                            .setTitle(sms.getAddress());
-                                    builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            // User clicked OK button
-                                            SmsRadar.stopSmsRadarService(getApplicationContext());
-
-                                            registerPayment(transaction_id, email, token);
-                                        }
-                                    });
-
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
-
-                                }
-                            });
-                        }
-                    });
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
 
                 }
             });
