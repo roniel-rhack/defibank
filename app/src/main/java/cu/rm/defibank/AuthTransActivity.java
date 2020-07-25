@@ -30,11 +30,12 @@ import java.util.List;
 
 import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
 import cu.rm.defibank.utils.CheckMessages;
+import cu.rm.defibank.utils.CustomListener;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.USSDUtils;
 
 
-public class AuthTransActivity extends CustomActivityAnimated {
+public class AuthTransActivity extends CustomActivityAnimated implements CustomListener {
 
     Button btnCancel;
     Button btnSend;
@@ -151,7 +152,7 @@ public class AuthTransActivity extends CustomActivityAnimated {
             btnSend.setVisibility(View.INVISIBLE);
             btnCancel.setVisibility(View.INVISIBLE);
             loading.setVisibility(View.VISIBLE);
-            USSDUtils.autenticarTransfermovil(getApplicationContext(), codeTransf, banco);
+            USSDUtils.autenticarTransfermovil(getApplicationContext(), codeTransf, banco, this);
 
         } else {
             AlertDialog.Builder builder2 = new AlertDialog.Builder(AuthTransActivity.this);
@@ -217,5 +218,12 @@ public class AuthTransActivity extends CustomActivityAnimated {
     protected void animationsClearOut() {
         super.animationsClearOut();
         logoTransfer.clearAnimation();
+    }
+
+    @Override
+    public void callback(String result) {
+        Log.d("Custom Listener", result);
+        goActivity(AuthTransActivity.this, PayActivity.class);
+
     }
 }

@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.romellfudi.ussdlibrary.SplashLoadingService;
@@ -33,6 +34,8 @@ public class USSDUtils extends Application {
         map.put("KEY_LOGIN",new HashSet<>(Arrays.asList("espere", "waiting", "loading", "esperando")));
         map.put("KEY_ERROR",new HashSet<>(Arrays.asList("problema", "problem", "error", "null")));
     }
+
+
 
     public static HashMap getMap(){
         HashMap map = new HashMap<>();
@@ -68,7 +71,7 @@ public class USSDUtils extends Application {
 });
         }
 
-public static void autenticarTransfermovil(final Context context, final String code, final GlobalPrefs.BANCOS banco) {
+public static void autenticarTransfermovil(final Context context, final String code, final GlobalPrefs.BANCOS banco, CustomListener listener) {
 
 final USSDApi ussdApi = USSDController.getInstance(context);
         String codeUssd = GlobalPrefs.AUTENTICAR_TRANSFERMOVIL_USSD;
@@ -104,6 +107,9 @@ final USSDApi ussdApi = USSDController.getInstance(context);
                 Log.d("USSD Autenticar out: ", message);
                 if (message.toLowerCase().contains("Usted ya se encuentra autenticado".toLowerCase())){
 //                    salirTransfermovil(context);
+                    listener.callback("Usted ya se encuentra autenticado");
+
+
                 }
             }
         });
