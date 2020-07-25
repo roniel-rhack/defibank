@@ -3,6 +3,7 @@ package cu.rm.defibank;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,10 +48,14 @@ public class CheckActivity extends CustomActivityAnimated {
             case R.id.btnSend:
             case R.id.btnResend: {
                 String code = codeInput.getText().toString();
-                // TODO: hacer las validaciones pertinentes con el code
-                btnSend.setVisibility(View.INVISIBLE);
-                loading.setVisibility(View.VISIBLE);
-                CheckCode(code);
+                if (TextUtils.isEmpty(code)){
+                    codeInput.setError("Este campo no puede estar vacío.");
+                }else{
+                    btnSend.setVisibility(View.INVISIBLE);
+                    loading.setVisibility(View.VISIBLE);
+                    CheckCode(code);
+                }
+
                 break;
             }
             case R.id.btnCancel:
@@ -95,13 +100,14 @@ public class CheckActivity extends CustomActivityAnimated {
                                 SharedPreferences.Editor editor = pref.edit();
                                 editor.putInt("registrationStep", 2);
                                 editor.commit();
-                                Intent intent = new Intent(CheckActivity.this, AuthTransActivity.class);
+                                if (pref.getBoolean("openedForOtherApp", false)){
+                                    Intent intent = new Intent(CheckActivity.this, AuthTransActivity.class);
+                                }
+                                Intent intent = new Intent(CheckActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             }else if (json.getString("status").equals("1002")){
-                                Toast.makeText(getApplicationContext(), "El código no es correcto, verifíquelo.",
-                                        Toast.LENGTH_SHORT)
-                                        .show();
+                                codeInput.setError("Código incorrecto, verifíquelo.");
                             }
 
                         } catch (JSONException e) {
@@ -109,7 +115,7 @@ public class CheckActivity extends CustomActivityAnimated {
                         }
 
 
-                        Log.d("Response", response);
+                        Log.d("Check Response", response);
                     }
                 },
                 new Response.ErrorListener()
