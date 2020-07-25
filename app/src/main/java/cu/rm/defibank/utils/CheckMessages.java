@@ -12,6 +12,10 @@ public class CheckMessages {
         return message.toLowerCase().contains("Usted se ha autenticado".toLowerCase());
     }
 
+    public static boolean checkTransferMethodMessage(String message) {
+        return message.toLowerCase().contains("Usted se ha autenticado".toLowerCase());
+    }
+
     public static boolean checkAddress(String address){
         return address.toLowerCase().equals("PAGOxMOVIL".toLowerCase());
     }
