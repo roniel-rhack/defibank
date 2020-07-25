@@ -72,11 +72,25 @@
             app:layout_constraintTop_toBottomOf="@+id/id_label"
             tools:ignore="HardcodedText" />
 
-        <cu.rm.defibank.components.CurrencyTextView
-            android:id="@+id/propina"
+
+        <TextView
+            android:id="@+id/importe_total_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="Importe total:"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/app_label"
+            tools:ignore="HardcodedText" />
+
+        <cu.rm.defibank.components.CurrencyTextView
+            android:id="@+id/importe_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:autofillHints="name"
@@ -84,9 +98,10 @@
             android:text="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/importe_label"
-            app:layout_constraintTop_toBottomOf="@+id/app"
+            app:layout_constraintStart_toEndOf="@+id/impuesto_label"
+            app:layout_constraintTop_toBottomOf="@+id/app_label"
             tools:ignore="HardcodedText" />
+
 
         <TextView
             android:id="@+id/envio_label"
@@ -99,7 +114,7 @@
             android:text="Costo de envio:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/importe_label"
+            app:layout_constraintTop_toBottomOf="@+id/importe_total_label"
             tools:ignore="HardcodedText" />
 
         <cu.rm.defibank.components.CurrencyTextView
@@ -115,7 +130,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/envio_label"
-            app:layout_constraintTop_toBottomOf="@+id/propina"
+            app:layout_constraintTop_toBottomOf="@+id/importe_total"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -126,7 +141,7 @@
             android:layout_marginTop="8dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
-            android:text="Impuestos:"
+            android:text="Comisión:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/envio_label"
@@ -155,7 +170,7 @@
             android:layout_marginTop="8dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
-            android:text="Descuentos:"
+            android:text="Descuento total:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/impuesto_label"
@@ -176,29 +191,45 @@
             app:layout_constraintTop_toBottomOf="@+id/impuesto"
             tools:ignore="HardcodedText" />
 
+
         <TextView
-            android:id="@+id/importe_label"
+            android:id="@+id/propina_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
-            android:text="Propina:"
+            android:text="Propina total:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_label"
+            app:layout_constraintTop_toBottomOf="@+id/descuento_label"
+            tools:ignore="HardcodedText" />
+
+        <cu.rm.defibank.components.CurrencyTextView
+            android:id="@+id/propina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:autofillHints="name"
+            android:fontFamily="@font/basic"
+            android:text="0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/impuesto_label"
+            app:layout_constraintTop_toBottomOf="@+id/descuento"
             tools:ignore="HardcodedText" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="8dp"
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descuento_label" />
+            app:layout_constraintTop_toBottomOf="@+id/propina_label" />
 
         <TextView
             android:id="@+id/total_label"
@@ -208,7 +239,7 @@
             android:layout_marginTop="10dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
-            android:text="IMPORTE TOTAL:"
+            android:text="IMPORTE A PAGAR:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider"
@@ -234,7 +265,7 @@
             android:id="@+id/list_items"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
