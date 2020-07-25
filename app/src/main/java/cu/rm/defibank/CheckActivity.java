@@ -46,16 +46,19 @@ public class CheckActivity extends CustomActivityAnimated {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSend:
-            case R.id.btnResend: {
                 String code = codeInput.getText().toString();
                 if (TextUtils.isEmpty(code)){
                     codeInput.setError("Este campo no puede estar vacío.");
                 }else{
                     btnSend.setVisibility(View.INVISIBLE);
+                    btnCancel.setVisibility(View.INVISIBLE);
+                    btnResend.setVisibility(View.INVISIBLE);
                     loading.setVisibility(View.VISIBLE);
                     CheckCode(code);
                 }
-
+                break;
+            case R.id.btnResend: {
+                goActivity(CheckActivity.this, RegisterActivity.class);
                 break;
             }
             case R.id.btnCancel:
@@ -125,6 +128,8 @@ public class CheckActivity extends CustomActivityAnimated {
                         // error
                         Log.d("Error.Response", error.getMessage());
                         btnSend.setVisibility(View.VISIBLE);
+                        btnCancel.setVisibility(View.VISIBLE);
+                        btnResend.setVisibility(View.VISIBLE);
                         loading.setVisibility(View.INVISIBLE);
 
                     }
@@ -147,4 +152,6 @@ public class CheckActivity extends CustomActivityAnimated {
 
         VolleyQueue.getInstance().addToQueue(postRequest);
     }
+
+
 }
