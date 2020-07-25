@@ -1,6 +1,7 @@
 package cu.rm.defibank;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,19 +22,25 @@ import com.tuenti.smsradar.Sms;
 import com.tuenti.smsradar.SmsListener;
 import com.tuenti.smsradar.SmsRadar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
+import cu.rm.defibank.objects.Item;
+import cu.rm.defibank.objects.Pay;
 import cu.rm.defibank.utils.CheckMessages;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.USSDUtils;
 import cu.rm.defibank.utils.VolleyQueue;
 
 public class PayActivity extends CustomActivityAnimated {
+    protected Pay payObject;
     Button bntSend, btnCancel, btnChange;
     ProgressBar loading, loading_global;
     TextView pay, shipment, tax, card_to, card_manage, total_to_pay;
@@ -86,6 +93,11 @@ public class PayActivity extends CustomActivityAnimated {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btnDetails:
+                Intent intent = new Intent(PayActivity.this, DetailsActivity.class);
+                intent.putExtra("pay", payObject);
+                goActivity(intent);
+                break;
             case (R.id.btnSend): {
                 makeTransfers();
                 break;
@@ -147,6 +159,15 @@ public class PayActivity extends CustomActivityAnimated {
                                 if (container != null)
                                     container.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.container_in));
 
+                                JSONArray items = json.getJSONArray("items");
+                                List<Item> itemsArray = new LinkedList<>();
+                                for (int j = 0; j < items.length(); j++) {
+                                    itemsArray.add(new Item(items.getJSONObject(j).getString("title"), items.getJSONObject(j).getString("description"),
+                                            items.getJSONObject(j).getDouble("tip"), items.getJSONObject(j).getDouble("discount"),
+                                            items.getJSONObject(j).getDouble("cost")));
+                                }
+                                payObject = new Pay(json.getString("transaction_id"), json.getString("application"), json.getDouble("pay"),
+                                        json.getDouble("discounts"), json.getDouble("shipment"), json.getDouble("tax"), json.getDouble("tips"), itemsArray);
 
                             } else if (json.getString("status").equals("1002")) {
                                 Toast.makeText(getApplicationContext(), "El registro falló, intente más tarde.",
