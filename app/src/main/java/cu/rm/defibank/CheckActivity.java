@@ -98,7 +98,10 @@ public class CheckActivity extends CustomActivityAnimated {
                                 SharedPreferences.Editor editor = pref.edit();
                                 editor.putInt("registrationStep", 2);
                                 editor.commit();
-                                Intent intent = new Intent(CheckActivity.this, AuthTransActivity.class);
+                                if (pref.getBoolean("openedForOtherApp", false)){
+                                    Intent intent = new Intent(CheckActivity.this, AuthTransActivity.class);
+                                }
+                                Intent intent = new Intent(CheckActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             }else if (json.getString("status").equals("1002")){
