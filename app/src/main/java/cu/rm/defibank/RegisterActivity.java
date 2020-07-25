@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -30,7 +32,7 @@ public class RegisterActivity extends CustomActivityFullAnimated {
 
     Button btnSend;
     EditText nameEdit, emailEdit;
-    ProgressBar loading;
+    ConstraintLayout loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class RegisterActivity extends CustomActivityFullAnimated {
         btnSend = findViewById(R.id.btnSend);
         nameEdit = findViewById(R.id.inputName);
         emailEdit = findViewById(R.id.inputEmail);
-        loading = findViewById(R.id.progressBar);
+        loading = findViewById(R.id.progressBarLoading);
     }
 
     @Override
