@@ -100,11 +100,43 @@ public class PayActivity extends CustomActivityAnimated {
                 goActivity(intent);
                 break;
             case (R.id.btnSend): {
-                makeTransfers();
+                AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+                builder.setMessage("¿Está seguro que desea realizar el pago?")
+                        .setTitle("Confirmación de pago");
+                builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        makeTransfers();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 break;
             }
             case (R.id.btnCancel): {
-                cancelPayment(transaction_id, token);
+                AlertDialog.Builder builder = new AlertDialog.Builder(PayActivity.this);
+                builder.setMessage("¿Está seguro que desea cancelar el pago?")
+                        .setTitle("Cancelación de pago");
+                builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                        cancelPayment(transaction_id, token);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 break;
             }
             case (R.id.btnChange): {

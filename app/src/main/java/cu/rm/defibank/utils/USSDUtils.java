@@ -110,6 +110,8 @@ final USSDApi ussdApi = USSDController.getInstance(context);
                     listener.callback("Usted ya se encuentra autenticado");
 
 
+                }else{
+                    listener.callback(message);
                 }
             }
         });

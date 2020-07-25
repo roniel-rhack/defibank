@@ -214,7 +214,24 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
     @Override
     public void callback(String result) {
         Log.d("Custom Listener", result);
+        if (result.equals("Usted ya se encuentra autenticado"))
         goActivity(AuthTransActivity.this, PayActivity.class);
+        else{
+            AlertDialog.Builder builder2 = new AlertDialog.Builder(AuthTransActivity.this);
+
+            builder2.setMessage(result)
+                    .setTitle("Error al autenticar");
+            builder2.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                    finish();
+                }
+            });
+
+            AlertDialog dialog2 = builder2.create();
+            dialog2.show();
+        }
+
 
     }
 }
