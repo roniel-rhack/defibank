@@ -15,7 +15,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AlertDialog;
@@ -197,7 +196,7 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
         btnCancel = findViewById(R.id.btnCancel);
         btnSend = findViewById(R.id.btnSend);
         codeInput = findViewById(R.id.inputCodeAct);
-        loading = findViewById(R.id.progressBar2);
+        loading = findViewById(R.id.progressBarLoading);
         radioBancos = findViewById(R.id.banco_sel);
     }
 

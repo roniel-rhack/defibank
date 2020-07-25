@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,7 +33,7 @@ public class CheckActivity extends CustomActivityAnimated {
     Button btnCancel;
     Button btnSend, btnResend;
     EditText codeInput;
-    ProgressBar loading;
+    ConstraintLayout loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class CheckActivity extends CustomActivityAnimated {
         btnSend = findViewById(R.id.btnSend);
         btnResend = findViewById(R.id.btnResend);
         codeInput = findViewById(R.id.inputCodeAct);
-        loading = findViewById(R.id.progressBar3);
+        loading = findViewById(R.id.progressBarLoading);
     }
 
     @Override
