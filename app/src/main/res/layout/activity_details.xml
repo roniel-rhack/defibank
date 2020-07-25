@@ -72,7 +72,6 @@
             app:layout_constraintTop_toBottomOf="@+id/id_label"
             tools:ignore="HardcodedText" />
 
-
         <TextView
             android:id="@+id/importe_total_label"
             android:layout_width="wrap_content"
@@ -81,7 +80,7 @@
             android:layout_marginTop="16dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
-            android:text="Importe total:"
+            android:text="Importe de compra:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/app_label"
