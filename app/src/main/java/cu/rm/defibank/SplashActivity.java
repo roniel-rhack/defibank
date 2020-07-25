@@ -39,18 +39,25 @@ public class SplashActivity extends CustomSplashActivityAnimated {
 
 //        Intent originalIntent = getIntent();
         String sharedId = null;//"defi-p7C9EGy50cgH5mncjF9P";//originalIntent.getStringExtra("transaction_id");
-        String token = "UyWCz7CL9tlYhp2bG2d3";
+        String token = "gYBwhnnjlLpgUdWTawmo";
 
+
+        // only for test
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("token", token);
+        editor.putString("email", "mmaciass940412@gmail.com");
+        editor.commit();
 
         if (sharedId != null) {
             openedForOtherApp = true;
-            SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putBoolean("openedForOtherApp", true);
-            editor.putString("transaction_id", sharedId);
-            editor.putString("token", token);
-            editor.putString("email", "roniel.rack@gmail.com");
-            editor.commit();
+//            SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
+//            SharedPreferences.Editor editor = pref.edit();
+//            editor.putBoolean("openedForOtherApp", true);
+//            editor.putString("transaction_id", sharedId);
+//            editor.putString("token", token);
+//            editor.putString("email", "mmaciass940412@gmail.com");
+//            editor.commit();
         }
 
 
@@ -71,11 +78,11 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                             1);
                 } else {
                     // Permission has already been granted
-                    Continue();
+//                    Continue();
                     // para pruebas de transfermovil
-//                    Intent i = new Intent(SplashActivity.this, AuthTransActivity.class);
-//                    startActivity(i);
-//                    finish();
+                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
                 }
 
 

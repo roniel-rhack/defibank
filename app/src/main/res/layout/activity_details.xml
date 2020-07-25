@@ -73,7 +73,7 @@
             tools:ignore="HardcodedText" />
 
         <cu.rm.defibank.components.CurrencyTextView
-            android:id="@+id/envio"
+            android:id="@+id/propina"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -103,7 +103,7 @@
             tools:ignore="HardcodedText" />
 
         <cu.rm.defibank.components.CurrencyTextView
-            android:id="@+id/importe"
+            android:id="@+id/envio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -115,7 +115,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/envio_label"
-            app:layout_constraintTop_toBottomOf="@+id/envio"
+            app:layout_constraintTop_toBottomOf="@+id/propina"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -144,7 +144,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/impuesto_label"
-            app:layout_constraintTop_toBottomOf="@+id/importe"
+            app:layout_constraintTop_toBottomOf="@+id/envio"
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -184,7 +184,7 @@
             android:layout_marginTop="16dp"
             android:autofillHints="name"
             android:fontFamily="@font/basic"
-            android:text="Importe:"
+            android:text="Propina:"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/app_label"

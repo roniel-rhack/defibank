@@ -6,14 +6,14 @@ import java.util.List;
 public class Pay implements Serializable {
     protected String transactionId;
     protected String application;
-    protected float discounts;
-    protected float shipment;
-    protected float taxs;
-    protected float tips;
-    protected float total;
+    protected double discounts;
+    protected double shipment;
+    protected double taxs;
+    protected double tips;
+    protected double total;
     protected List<Item> items;
 
-    public Pay(String transactionId, String application, float total, float discounts, float shipment, float taxs, float tips, List<Item> items) {
+    public Pay(String transactionId, String application, double total, double discounts, double shipment, double taxs, double tips, List<Item> items) {
         this.transactionId = transactionId;
         this.application = application;
         this.total = total;
@@ -24,15 +24,6 @@ public class Pay implements Serializable {
         this.items = items;
     }
 
-    public Pay(String transactionId, String application, float total, float discounts, float shipment, float taxs, float tips) {
-        this.transactionId = transactionId;
-        this.application = application;
-        this.total = total;
-        this.discounts = discounts;
-        this.shipment = shipment;
-        this.taxs = taxs;
-        this.tips = tips;
-    }
 
     public String getTransactionId() {
         return transactionId;
@@ -50,43 +41,43 @@ public class Pay implements Serializable {
         this.application = application;
     }
 
-    public float getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(float total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
-    public float getDiscounts() {
+    public double getDiscounts() {
         return discounts;
     }
 
-    public void setDiscounts(float discounts) {
+    public void setDiscounts(double discounts) {
         this.discounts = discounts;
     }
 
-    public float getShipment() {
+    public double getShipment() {
         return shipment;
     }
 
-    public void setShipment(float shipment) {
+    public void setShipment(double shipment) {
         this.shipment = shipment;
     }
 
-    public float getTaxs() {
+    public double getTaxs() {
         return taxs;
     }
 
-    public void setTaxs(float taxs) {
+    public void setTaxs(double taxs) {
         this.taxs = taxs;
     }
 
-    public float getTips() {
+    public double getTips() {
         return tips;
     }
 
-    public void setTips(float tips) {
+    public void setTips(double tips) {
         this.tips = tips;
     }
 
