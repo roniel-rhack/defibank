@@ -1,7 +1,6 @@
 package cu.rm.defibank;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -74,7 +73,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                     // Permission has already been granted
 //                    Continue();
                     // para pruebas de transfermovil
-                    Intent i = new Intent(SplashActivity.this, AuthTransActivity.class);
+                    Intent i = new Intent(SplashActivity.this, ProtectActivity.class);
                     startActivity(i);
                     finish();
                 }
@@ -109,6 +108,68 @@ public class SplashActivity extends CustomSplashActivityAnimated {
         }
     }
 
+    /***
+     * Este método devuelve un int que representa la activity hacia la que debe moverse el usuario.
+     * 1 - Datos del pago
+     * 2 - Listado de pagos
+     * 3 - Autenticar transfermovil
+     * 4 - Check Activity
+     * 5 - Register
+     *
+     * @return activityToGoAfter int
+     */
+    private int activityToGoAfter() {
+        // comprobar que existen las prefs
+        if (loadedPreferences() && getRegistrationStep() == 3) {
+            if (openedForOtherApp) {
+                //  Si la App fue abierta por otra, mostrar los datos del pago
+                return 1;
+            } else {
+                //  Si la App fue abierta por el usuario,  mostrar el listado de pagos
+                return 2;
+            }
+
+        } else if (loadedPreferences() && getRegistrationStep() == 2) {
+            // ir a autenticacion de transfermovil
+            return 3;
+        } else if (loadedPreferences() && getRegistrationStep() == 1) {
+            // TODO: Preguntar al usuario si desea comenzar desde el inicio?
+            // ir a check activity
+            return 4;
+        }
+        return 5;
+    }
+
+    private void selectActivityToContinue() {
+        // comprobar que existen las prefs
+        if (loadedPreferences() && getRegistrationStep() == 3) {
+            if (openedForOtherApp) {
+                // TODO: Si la App fue abierta por otra, mostrar los datos del pago
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                // TODO: Si la App fue abierta por el usuario,  mostrar el listado de pagos
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+        } else if (loadedPreferences() && getRegistrationStep() == 2) {
+            Intent intent = new Intent(SplashActivity.this, AuthTransActivity.class);
+            startActivity(intent);
+            finish();
+        } else if (loadedPreferences() && getRegistrationStep() == 1) {
+            // TODO: Preguntar al usuario si desea comenzar desde el inicio?
+            Intent intent = new Intent(SplashActivity.this, CheckActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void Continue() {
         // check if the phone support biometric authentication
         BiometricManager biometricManager = BiometricManager.from(getApplicationContext());
@@ -131,34 +192,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                     public void onAuthenticationSucceeded(
                             @NonNull BiometricPrompt.AuthenticationResult result) {
                         super.onAuthenticationSucceeded(result);
-
-                        // comprobar que existen las prefs
-                        if (loadedPreferences() && getRegistrationStep() == 3) {
-                            if (openedForOtherApp) {
-                                // TODO: Si la App fue abierta por otra, mostrar los datos del pago
-                                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                // TODO: Si la App fue abierta por el usuario,  mostrar el listado de pagos
-                                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-
-                        } else if (loadedPreferences() && getRegistrationStep() == 2) {
-                            Intent intent = new Intent(SplashActivity.this, AuthTransActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else if (loadedPreferences() && getRegistrationStep() == 1) {
-                            // TODO: Preguntar al usuario si desea comenzar desde el inicio?
-                            Intent intent = new Intent(SplashActivity.this, CheckActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                        Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
-                        startActivity(intent);
-                        finish();
+                        selectActivityToContinue();
                     }
 
                     @Override
@@ -184,32 +218,43 @@ public class SplashActivity extends CustomSplashActivityAnimated {
 
                 break;
             //TODO: Que hacer si el telefono no soporta ningun tipo de autenticacion biometrica?
-            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
-                Log.e("DefiBank", "No biometric features available on this device.");
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(SplashActivity.this);
-
-                builder2.setMessage("Su dispositivo no cuenta con autenticación biométrica, ¿desea crear una clave de acceso?.")
-                        .setTitle("Biometría no soportada");
-                builder2.setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked OK button
-                        startActivityForResult(new Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS), 0);
-                    }
-                });
-                builder2.setNegativeButton("No", (dialog, id)->{
-
-                });
-
-                AlertDialog dialog2 = builder2.create();
-                dialog2.show();
-                break;
             case BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE:
-                Log.e("DefiBank", "Biometric features are currently unavailable.");
-                break;
             case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
-                Log.e("DefiBank", "The user hasn't associated " +
-                        "any biometric credentials with their account.");
+            case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE: {
+                Log.e("DefiBank", "No biometric features available on this device.");
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
+                if (pref.contains("password")) {
+                    Intent intent = new Intent(SplashActivity.this, ProtectActivity.class);
+                    intent.putExtra("activityToGoAfter", activityToGoAfter());
+                    intent.putExtra("login", true);
+                    startActivity(intent);
+                    finish();
+
+                }else{
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(SplashActivity.this);
+
+                    builder2.setMessage("Su dispositivo no cuenta con autenticación biométrica o no esta configurada, ¿desea crear una clave de acceso?.")
+                            .setTitle("Problema con Biometría");
+                    builder2.setPositiveButton("Si", (dialog, id) -> {
+                        // User clicked OK button
+                        Intent intent = new Intent(SplashActivity.this, ProtectActivity.class);
+                        intent.putExtra("activityToGoAfter", activityToGoAfter());
+                        startActivity(intent);
+                        finish();
+                    });
+                    builder2.setNegativeButton("No", (dialog, id) -> {
+                        // User clicked No button
+                        selectActivityToContinue();
+                    });
+
+                    AlertDialog dialog2 = builder2.create();
+                    dialog2.show();
+                }
+
                 break;
+            }
+
         }
     }
 
