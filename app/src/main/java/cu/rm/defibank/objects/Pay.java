@@ -1,6 +1,7 @@
 package cu.rm.defibank.objects;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Pay implements Serializable {
     protected String transactionId;
@@ -10,9 +11,9 @@ public class Pay implements Serializable {
     protected float taxs;
     protected float tips;
     protected float total;
-    protected Item[] items;
+    protected List<Item> items;
 
-    public Pay(String transactionId, String application, float total, float discounts, float shipment, float taxs, float tips, Item[] items) {
+    public Pay(String transactionId, String application, float total, float discounts, float shipment, float taxs, float tips, List<Item> items) {
         this.transactionId = transactionId;
         this.application = application;
         this.total = total;
@@ -89,11 +90,11 @@ public class Pay implements Serializable {
         this.tips = tips;
     }
 
-    public Item[] getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(Item[] items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 }
