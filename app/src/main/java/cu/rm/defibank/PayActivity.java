@@ -41,7 +41,7 @@ import cu.rm.defibank.utils.VolleyQueue;
 
 public class PayActivity extends CustomActivityAnimated {
     protected Pay payObject;
-    Button bntSend, btnCancel, btnChange;
+    Button bntSend, btnCancel, btnChange, btnDetails;
     ProgressBar loading, loading_global;
     TextView pay, shipment, tax, card_to, card_manage, total_to_pay;
     String transaction_id, token, email, card_for_pay, card_for_tax;
@@ -71,7 +71,7 @@ public class PayActivity extends CustomActivityAnimated {
         bntSend.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         btnChange.setOnClickListener(this);
-
+        btnDetails.setOnClickListener(this);
     }
 
     @Override
@@ -88,6 +88,7 @@ public class PayActivity extends CustomActivityAnimated {
         total_to_pay = findViewById(R.id.total);
         loading_global = findViewById(R.id.progressBar_global);
         btnChange = findViewById(R.id.btnChange);
+        btnDetails = findViewById(R.id.btnDetails);
     }
 
     @Override
