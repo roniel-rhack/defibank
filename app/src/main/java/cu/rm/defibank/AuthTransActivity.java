@@ -223,7 +223,6 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
                     // User clicked OK button
                     SmsRadar.stopSmsRadarService(getApplicationContext());
                     goActivity(AuthTransActivity.this, PayActivity.class);
-
                 }
             });
 

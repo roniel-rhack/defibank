@@ -377,6 +377,7 @@ public class PayActivity extends CustomActivityAnimated {
                                             builder.setPositiveButton("Ok", (dialog, id) -> {
                                                 // User clicked OK button
                                                 SmsRadar.stopSmsRadarService(getApplicationContext());
+                                                dialog.dismiss();
                                             });
 
                                             AlertDialog dialog = builder.create();
@@ -397,6 +398,7 @@ public class PayActivity extends CustomActivityAnimated {
                         builder.setPositiveButton("Ok", (dialog, id) -> {
                             // User clicked OK button
                             SmsRadar.stopSmsRadarService(getApplicationContext());
+                            dialog.dismiss();
                         });
 
                         AlertDialog dialog = builder.create();
