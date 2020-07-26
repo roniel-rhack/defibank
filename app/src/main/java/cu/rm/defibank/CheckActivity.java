@@ -98,7 +98,7 @@ public class CheckActivity extends CustomActivityAnimated {
                                 SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
                                 SharedPreferences.Editor editor = pref.edit();
                                 editor.putInt("registrationStep", 2);
-                                editor.commit();
+                                editor.apply();
                                 if (pref.getBoolean("openedForOtherApp", false)) {
                                     goActivity(CheckActivity.this, AuthTransActivity.class);
                                 } else {

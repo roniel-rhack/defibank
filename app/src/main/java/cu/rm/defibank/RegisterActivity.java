@@ -98,7 +98,7 @@ public class RegisterActivity extends CustomActivityFullAnimated {
                                 editor.putInt("registrationStep", 1);
                                 editor.putString("email", email);
                                 editor.putString("name", name);
-                                editor.commit();
+                                editor.apply();
                                 goActivity(RegisterActivity.this, CheckActivity.class);
                             }else if (json.getString("status").equals("1002")){
                                 Toast.makeText(getApplicationContext(), json.getString("message"),

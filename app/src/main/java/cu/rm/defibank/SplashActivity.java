@@ -56,7 +56,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
             editor.putBoolean("openedForOtherApp", true);
             editor.putString("transaction_id", sharedId);
             editor.putString("token", token);
-            editor.commit();
+            editor.apply();
         }
 
 
@@ -148,10 +148,10 @@ public class SplashActivity extends CustomSplashActivityAnimated {
 
     private void selectActivityToContinue() {
         // comprobar que existen las prefs
-        if (loadedPreferences() && getRegistrationStep() == 3) {
+        if (loadedPreferences() && getRegistrationStep() >= 2) {
             if (openedForOtherApp) {
                 // TODO: Si la App fue abierta por otra, mostrar los datos del pago
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, PayActivity.class);
                 startActivity(intent);
                 finish();
             } else {
@@ -161,19 +161,17 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                 finish();
             }
 
-        } else if (loadedPreferences() && getRegistrationStep() == 2) {
-            Intent intent = new Intent(SplashActivity.this, AuthTransActivity.class);
-            startActivity(intent);
-            finish();
-        } else if (loadedPreferences() && getRegistrationStep() == 1) {
+        }  else if (loadedPreferences() && getRegistrationStep() == 1) {
             // TODO: Preguntar al usuario si desea comenzar desde el inicio?
             Intent intent = new Intent(SplashActivity.this, CheckActivity.class);
             startActivity(intent);
             finish();
+        }else{
+            Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
+            startActivity(intent);
+            finish();
         }
-        Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
-        startActivity(intent);
-        finish();
+
     }
 
     private void Continue() {
