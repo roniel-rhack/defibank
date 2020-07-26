@@ -126,18 +126,15 @@ public class SplashActivity extends CustomSplashActivityAnimated {
      */
     private int activityToGoAfter() {
         // comprobar que existen las prefs
-        if (loadedPreferences() && getRegistrationStep() == 3) {
+        if (loadedPreferences() && getRegistrationStep() >= 2) {
             if (openedForOtherApp) {
                 //  Si la App fue abierta por otra, mostrar los datos del pago
-                return 1;
+                return 3;
             } else {
                 //  Si la App fue abierta por el usuario,  mostrar el listado de pagos
                 return 2;
             }
 
-        } else if (loadedPreferences() && getRegistrationStep() == 2) {
-            // ir a autenticacion de transfermovil
-            return 3;
         } else if (loadedPreferences() && getRegistrationStep() == 1) {
             // TODO: Preguntar al usuario si desea comenzar desde el inicio?
             // ir a check activity
@@ -151,7 +148,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
         if (loadedPreferences() && getRegistrationStep() >= 2) {
             if (openedForOtherApp) {
                 // TODO: Si la App fue abierta por otra, mostrar los datos del pago
-                Intent intent = new Intent(SplashActivity.this, PayActivity.class);
+                Intent intent = new Intent(SplashActivity.this, AuthTransActivity.class);
                 startActivity(intent);
                 finish();
             } else {

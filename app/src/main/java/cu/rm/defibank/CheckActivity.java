@@ -104,8 +104,12 @@ public class CheckActivity extends CustomActivityAnimated {
                                 } else {
                                     goActivity(CheckActivity.this, MainActivity.class);
                                 }
-                            } else if (json.getString("status").equals("1002")) {
+                            } else {
                                 codeInput.setError("Código incorrecto, verifíquelo.");
+                                btnSend.setVisibility(View.VISIBLE);
+                                btnCancel.setVisibility(View.VISIBLE);
+                                btnResend.setVisibility(View.VISIBLE);
+                                loading.setVisibility(View.INVISIBLE);
                             }
 
                         } catch (JSONException e) {
