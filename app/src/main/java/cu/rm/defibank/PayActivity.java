@@ -59,7 +59,7 @@ public class PayActivity extends CustomActivityAnimated {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
         container.setVisibility(View.INVISIBLE);
-        loading_global.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.VISIBLE);
         SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
         transaction_id = pref.getString("transaction_id", "");
         token = pref.getString("token", "");
@@ -192,7 +192,7 @@ public class PayActivity extends CustomActivityAnimated {
                                 totalPayNo = payNo + shipmentNo + taxNo;
                                 total_to_pay.setText(totalPayNo + "");
                                 container.setVisibility(View.VISIBLE);
-                                loading_global.setVisibility(View.INVISIBLE);
+                                loading.setVisibility(View.INVISIBLE);
                                 if (container != null)
                                     container.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.container_in));
 
@@ -290,6 +290,9 @@ public class PayActivity extends CustomActivityAnimated {
                         builder.setPositiveButton("Ok", (dialog, id) -> {
                             // User clicked OK button
                             SmsRadar.stopSmsRadarService(getApplicationContext());
+                            container.setVisibility(View.VISIBLE);
+                            loading_global.setVisibility(View.INVISIBLE);
+                            dialog.dismiss();
                         });
 
                         AlertDialog dialog = builder.create();
@@ -377,6 +380,8 @@ public class PayActivity extends CustomActivityAnimated {
                                             builder.setPositiveButton("Ok", (dialog, id) -> {
                                                 // User clicked OK button
                                                 SmsRadar.stopSmsRadarService(getApplicationContext());
+                                                container.setVisibility(View.VISIBLE);
+                                                loading_global.setVisibility(View.INVISIBLE);
                                                 dialog.dismiss();
                                             });
 
@@ -398,6 +403,8 @@ public class PayActivity extends CustomActivityAnimated {
                         builder.setPositiveButton("Ok", (dialog, id) -> {
                             // User clicked OK button
                             SmsRadar.stopSmsRadarService(getApplicationContext());
+                            container.setVisibility(View.VISIBLE);
+                            loading_global.setVisibility(View.INVISIBLE);
                             dialog.dismiss();
                         });
 
@@ -427,6 +434,8 @@ public class PayActivity extends CustomActivityAnimated {
                             loading_global.setVisibility(View.INVISIBLE);
 
                             if (json.getString("status").equals("1001")) {
+                                container.setVisibility(View.VISIBLE);
+                                loading_global.setVisibility(View.INVISIBLE);
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(PayActivity.this);
 
                                 builder2.setMessage(String.format("El pago se ha registrado correctamente. TRANSACTION_ID: %s", json.getString("transaction_id")))
@@ -448,6 +457,7 @@ public class PayActivity extends CustomActivityAnimated {
                                 dialog2.show();
 
                             } else if (json.getString("status").equals("1002")) {
+                                // TODO: revisar si la api responde distinto a 1001, que hacer para poder registrar el pago
                                 Toast.makeText(getApplicationContext(), "El registro falló, intente más tarde.",
                                         Toast.LENGTH_SHORT)
                                         .show();
