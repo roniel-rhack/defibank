@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -42,7 +43,8 @@ import cu.rm.defibank.utils.VolleyQueue;
 public class PayActivity extends CustomActivityAnimated {
     protected Pay payObject;
     Button bntSend, btnCancel, btnChange, btnDetails;
-    ProgressBar loading, loading_global;
+    ProgressBar loading;
+    ConstraintLayout loading_global;
     TextView pay, shipment, tax, card_to, card_manage, total_to_pay;
     String transaction_id, token, email, card_for_pay, card_for_tax;
     Double payNo, shipmentNo, taxNo, totalPayNo;
@@ -308,10 +310,10 @@ public class PayActivity extends CustomActivityAnimated {
                 importe_comision = taxNo / 25;
 
             }
-            Log.i("Transferir","Iniciando primera transferencia");
+            Log.i("Transferir", "Iniciando primera transferencia");
 
             USSDUtils.transferirTransfermovil(getApplicationContext(), card_for_pay, importe_venta);
-            Log.i("Transferir","Iniciando primer listener");
+            Log.i("Transferir", "Iniciando primer listener");
 
             SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
                 @Override
@@ -330,13 +332,13 @@ public class PayActivity extends CustomActivityAnimated {
                         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // se ejecuta la transferencia al negocio
-                                Log.i("Transferir","deteniendo primer listener");
+                                Log.i("Transferir", "deteniendo primer listener");
 
                                 SmsRadar.stopSmsRadarService(getApplicationContext());
-                                Log.i("Transferir","iniciando segunda transferencia");
+                                Log.i("Transferir", "iniciando segunda transferencia");
 
                                 USSDUtils.transferirTransfermovil(getApplicationContext(), card_for_tax, importe_comision);
-                                Log.i("Transferir","iniciando segundo listener");
+                                Log.i("Transferir", "iniciando segundo listener");
 
                                 SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
                                     @Override
@@ -356,10 +358,10 @@ public class PayActivity extends CustomActivityAnimated {
                                             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
                                                     // User clicked OK button
-                                                    Log.i("Transferir","deteniendo segundo listener");
+                                                    Log.i("Transferir", "deteniendo segundo listener");
 
                                                     SmsRadar.stopSmsRadarService(getApplicationContext());
-                                                    Log.i("Transferir","registrando pago");
+                                                    Log.i("Transferir", "registrando pago");
 
                                                     registerPayment(transaction_id, email, token);
                                                 }
