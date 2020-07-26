@@ -106,6 +106,8 @@ public class PayActivity extends CustomActivityAnimated {
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK button
+                        container.setVisibility(View.INVISIBLE);
+                        loading_global.setVisibility(View.VISIBLE);
                         makeTransfers();
                     }
                 });
@@ -306,7 +308,11 @@ public class PayActivity extends CustomActivityAnimated {
                 importe_comision = taxNo / 25;
 
             }
+            Log.i("Transferir","Iniciando primera transferencia");
+
             USSDUtils.transferirTransfermovil(getApplicationContext(), card_for_pay, importe_venta);
+            Log.i("Transferir","Iniciando primer listener");
+
             SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
                 @Override
                 public void onSmsSent(Sms sms) {
@@ -324,8 +330,14 @@ public class PayActivity extends CustomActivityAnimated {
                         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // se ejecuta la transferencia al negocio
+                                Log.i("Transferir","deteniendo primer listener");
+
                                 SmsRadar.stopSmsRadarService(getApplicationContext());
+                                Log.i("Transferir","iniciando segunda transferencia");
+
                                 USSDUtils.transferirTransfermovil(getApplicationContext(), card_for_tax, importe_comision);
+                                Log.i("Transferir","iniciando segundo listener");
+
                                 SmsRadar.initializeSmsRadarService(getApplicationContext(), new SmsListener() {
                                     @Override
                                     public void onSmsSent(Sms sms) {
@@ -344,7 +356,10 @@ public class PayActivity extends CustomActivityAnimated {
                                             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                                 public void onClick(DialogInterface dialog, int id) {
                                                     // User clicked OK button
+                                                    Log.i("Transferir","deteniendo segundo listener");
+
                                                     SmsRadar.stopSmsRadarService(getApplicationContext());
+                                                    Log.i("Transferir","registrando pago");
 
                                                     registerPayment(transaction_id, email, token);
                                                 }
@@ -404,7 +419,8 @@ public class PayActivity extends CustomActivityAnimated {
                         try {
                             JSONObject json = new JSONObject(response);
                             Log.d("json - reg payment:", json.toString());
-                            USSDUtils.salirTransfermovil(getApplicationContext());
+                            container.setVisibility(View.VISIBLE);
+                            loading_global.setVisibility(View.INVISIBLE);
 
                             if (json.getString("status").equals("1001")) {
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(PayActivity.this);

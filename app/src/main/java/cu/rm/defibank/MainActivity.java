@@ -76,6 +76,7 @@ public class MainActivity extends CustomActivityAnimated implements AdapterView.
         detailsIntent.putExtra("pay", datos.get(position));
         detailsIntent.putExtra("listado", true);
         goActivity(detailsIntent);
+        finish();
     }
 
     public void getPayments(final String email) {

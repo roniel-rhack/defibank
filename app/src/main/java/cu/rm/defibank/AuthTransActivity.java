@@ -134,7 +134,6 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
         }
     }
 
-    // autenticacion de pruba para saber si el codigo introducido por el cliente es correcto
 
     private void autenticarTransfermovil() {
         boolean permisoAccesibilidad = isAccessibilityServiceEnabled(this, USSDService.class);
@@ -214,22 +213,25 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
     @Override
     public void callback(String result) {
         Log.d("Custom Listener", result);
-        if (result.equals("Usted ya se encuentra autenticado"))
-        goActivity(AuthTransActivity.this, PayActivity.class);
-        else{
+        if (result.equals("Usted ya se encuentra autenticado")){
             AlertDialog.Builder builder2 = new AlertDialog.Builder(AuthTransActivity.this);
 
             builder2.setMessage(result)
-                    .setTitle("Error al autenticar");
+                    .setTitle("Autenticación");
             builder2.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     // User clicked OK button
-                    finish();
+                    SmsRadar.stopSmsRadarService(getApplicationContext());
+                    goActivity(AuthTransActivity.this, PayActivity.class);
+
                 }
             });
 
             AlertDialog dialog2 = builder2.create();
             dialog2.show();
+        }
+        else{
+            Log.e("Autenticar", result);
         }
 
 
