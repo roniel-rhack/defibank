@@ -27,14 +27,14 @@ import com.tuenti.smsradar.SmsRadar;
 
 import java.util.List;
 
-import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
+import cu.rm.defibank.customsCompatActivity.CustomActivityFullAnimated;
 import cu.rm.defibank.utils.CheckMessages;
 import cu.rm.defibank.utils.CustomListener;
 import cu.rm.defibank.utils.GlobalPrefs;
 import cu.rm.defibank.utils.USSDUtils;
 
 
-public class AuthTransActivity extends CustomActivityAnimated implements CustomListener {
+public class AuthTransActivity extends CustomActivityFullAnimated implements CustomListener {
 
     Button btnCancel;
     Button btnSend;
@@ -59,7 +59,7 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
         radioBancos.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
+                switch (checkedId) {
                     case R.id.banco_bpa:
                         banco = GlobalPrefs.BANCOS.BPA;
                         break;
@@ -189,12 +189,12 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
         codeInput = findViewById(R.id.inputCodeAct);
         loading = findViewById(R.id.progressBarLoading);
         radioBancos = findViewById(R.id.banco_sel);
+        logoTransfer = findViewById(R.id.logoTransfermovil);
     }
 
     @Override
     protected void animationsIn() {
         super.animationsIn();
-        logoTransfer = findViewById(R.id.logoTransfermovil);
         logoTransfer.setAnimation(AnimationUtils.loadAnimation(this, R.anim.logo_right_in));
     }
 
@@ -213,7 +213,7 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
     @Override
     public void callback(String result) {
         Log.d("Custom Listener", result);
-        if (result.equals("Usted ya se encuentra autenticado")){
+        if (result.equals("Usted ya se encuentra autenticado")) {
             AlertDialog.Builder builder2 = new AlertDialog.Builder(AuthTransActivity.this);
 
             builder2.setMessage(result)
@@ -228,8 +228,7 @@ public class AuthTransActivity extends CustomActivityAnimated implements CustomL
 
             AlertDialog dialog2 = builder2.create();
             dialog2.show();
-        }
-        else{
+        } else {
             Log.e("Autenticar", result);
         }
 
