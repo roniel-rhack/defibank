@@ -185,7 +185,7 @@ public class PayActivity extends CustomActivityAnimated {
                                 pay.setText(json.getString("pay"));
                                 shipment.setText(json.getString("shipment"));
                                 tax.setText(json.getString("tax"));
-                                card_for_pay = "9200069993304827";//json.getString("card_to").replaceAll("\\s+", "");
+                                card_for_pay = json.getString("card_to").replaceAll("\\s+", "");
                                 card_to.setText(json.getString("card_to"));
                                 card_for_tax = json.has("card_manage") ? json.getString("card_manage") : "-";
                                 card_for_tax = card_for_pay.replaceAll("\\s+", "");
