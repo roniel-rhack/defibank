@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,9 +41,8 @@ import cu.rm.defibank.utils.VolleyQueue;
 
 public class PayActivity extends CustomActivityAnimated {
     protected Pay payObject;
-    Button bntSend, btnCancel, btnChange, btnDetails;
-    ProgressBar loading;
-    ConstraintLayout loading_global;
+    Button bntSend, btnCancel, btnChange, btnDetails, btnReload;
+    ConstraintLayout loading_global, loading, errorContainer;
     TextView pay, shipment, tax, card_to, card_manage, total_to_pay;
     String transaction_id, token, email, card_for_pay, card_for_tax;
     Double payNo, shipmentNo, taxNo, totalPayNo;
@@ -59,13 +57,11 @@ public class PayActivity extends CustomActivityAnimated {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pay);
         container.setVisibility(View.INVISIBLE);
-        loading.setVisibility(View.VISIBLE);
         SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
         transaction_id = pref.getString("transaction_id", "");
         token = pref.getString("token", "");
         email = pref.getString("email", "");
         getPayment(transaction_id, token);
-
     }
 
     @Override
@@ -74,6 +70,7 @@ public class PayActivity extends CustomActivityAnimated {
         btnCancel.setOnClickListener(this);
         btnChange.setOnClickListener(this);
         btnDetails.setOnClickListener(this);
+        btnReload.setOnClickListener(this);
     }
 
     @Override
@@ -81,7 +78,7 @@ public class PayActivity extends CustomActivityAnimated {
         super.findViewByIds();
         bntSend = findViewById(R.id.btnSend);
         btnCancel = findViewById(R.id.btnCancel);
-        loading = findViewById(R.id.progressBarLoading);
+        loading = findViewById(R.id.progressBar);
         pay = findViewById(R.id.importe_total);
         shipment = findViewById(R.id.envio);
         tax = findViewById(R.id.impuesto);
@@ -91,11 +88,16 @@ public class PayActivity extends CustomActivityAnimated {
         loading_global = findViewById(R.id.progressBar_global);
         btnChange = findViewById(R.id.btnChange);
         btnDetails = findViewById(R.id.btnDetails);
+        errorContainer = findViewById(R.id.errorContainer);
+        btnReload = findViewById(R.id.btnReload);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.btnReload:
+                getPayment(transaction_id, token);
+                break;
             case R.id.btnDetails:
                 Intent intent = new Intent(PayActivity.this, DetailsActivity.class);
                 intent.putExtra("pay", payObject);
@@ -166,6 +168,8 @@ public class PayActivity extends CustomActivityAnimated {
 
 
     public void getPayment(final String transaction_id, final String token) {
+        errorContainer.setVisibility(View.INVISIBLE);
+        loading.setVisibility(View.VISIBLE);
         String url = String.format("https://josue95.pythonanywhere.com/api/dev/get_payment/?transaction_id=%s", transaction_id);
         Log.d("init", "iniciando el metodo get_payment");
         StringRequest getRequest = new StringRequest(Request.Method.GET, url,
@@ -225,7 +229,8 @@ public class PayActivity extends CustomActivityAnimated {
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.getMessage());
-
+                        loading.setVisibility(View.INVISIBLE);
+                        errorContainer.setVisibility(View.VISIBLE);
                     }
                 }
         ) {
