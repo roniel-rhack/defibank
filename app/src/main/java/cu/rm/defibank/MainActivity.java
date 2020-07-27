@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,10 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import cu.rm.defibank.adapters.PaysAdapter;
 import cu.rm.defibank.customsCompatActivity.CustomActivityAnimated;
@@ -37,7 +37,9 @@ public class MainActivity extends CustomActivityAnimated implements AdapterView.
     ListView listTransactions;
     List<Pay> datos;
     TextView listEmptyLabel;
-    String transaction_id, token, email, card_for_pay, card_for_tax;
+    String token, email;
+    ConstraintLayout loading, errorContainer;
+    Button btnReload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,6 @@ public class MainActivity extends CustomActivityAnimated implements AdapterView.
         token = pref.getString("token", "");
         email = pref.getString("email", "");
         getPayments(email);
-
     }
 
     @Override
@@ -57,17 +58,25 @@ public class MainActivity extends CustomActivityAnimated implements AdapterView.
         super.findViewByIds();
         listTransactions = findViewById(R.id.listTrans);
         listEmptyLabel = findViewById(R.id.list_empty);
+        loading = findViewById(R.id.progressBarLoading);
+        errorContainer = findViewById(R.id.errorContainer);
+        btnReload = findViewById(R.id.btnReload);
     }
 
     @Override
     protected void setOnClickListeners() {
         listTransactions.setOnItemClickListener(this);
+        btnReload.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.btnReload:
+                getPayments(email);
+                break;
+        }
     }
 
     @Override
@@ -76,14 +85,17 @@ public class MainActivity extends CustomActivityAnimated implements AdapterView.
         detailsIntent.putExtra("pay", datos.get(position));
         detailsIntent.putExtra("listado", true);
         goActivity(detailsIntent);
-        finish();
     }
 
     public void getPayments(final String email) {
         String url = String.format("https://josue95.pythonanywhere.com/api/dev/list_pays/?email=%s", email);
         Log.d("init", "iniciando el metodo get_payments");
+        loading.setVisibility(View.VISIBLE);
+        errorContainer.setVisibility(View.INVISIBLE);
+        listEmptyLabel.setVisibility(View.INVISIBLE);
         StringRequest getRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
+                    loading.setVisibility(View.INVISIBLE);
                     // response
                     try {
                         JSONObject json = new JSONObject(response);
@@ -91,12 +103,14 @@ public class MainActivity extends CustomActivityAnimated implements AdapterView.
 
                         if (json.getString("status").equals("1001")) {
                             JSONArray pays = json.getJSONArray("pays");
+                            if (pays.length() == 0)
+                                listEmptyLabel.setVisibility(View.VISIBLE);
 
-                            for (int i = 0; i< pays.length(); i++) {
+                            for (int i = 0; i < pays.length(); i++) {
                                 JSONObject obj = pays.getJSONObject(i);
                                 JSONArray items = obj.getJSONArray("items");
                                 List<Item> itemsArray = new LinkedList<>();
-                                for (int j = 0; j< items.length(); j++){
+                                for (int j = 0; j < items.length(); j++) {
                                     itemsArray.add(new Item(items.getJSONObject(j).getString("title"), items.getJSONObject(j).getString("description"),
                                             items.getJSONObject(j).getDouble("tip"), items.getJSONObject(j).getDouble("discount"),
                                             items.getJSONObject(j).getDouble("cost")));
@@ -132,7 +146,8 @@ public class MainActivity extends CustomActivityAnimated implements AdapterView.
                     public void onErrorResponse(VolleyError error) {
                         // error
                         Log.d("Error.Response", error.getMessage());
-
+                        loading.setVisibility(View.INVISIBLE);
+                        errorContainer.setVisibility(View.VISIBLE);
                     }
                 });
 //        ) {

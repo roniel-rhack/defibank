@@ -79,9 +79,8 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                     // Permission has already been granted
                     Continue();
                     // para pruebas de transfermovil
-//                    Intent i = new Intent(SplashActivity.this, AuthTransActivity.class);
 //                    startActivity(i);
-//                    finish();
+//                    finishDelayed();
                 }
 
 
@@ -104,7 +103,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    finish();
+                    finishDelayed();
                 }
                 return;
             }
@@ -150,23 +149,23 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                 // TODO: Si la App fue abierta por otra, mostrar los datos del pago
                 Intent intent = new Intent(SplashActivity.this, AuthTransActivity.class);
                 startActivity(intent);
-                finish();
+                finishDelayed();
             } else {
                 // TODO: Si la App fue abierta por el usuario,  mostrar el listado de pagos
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish();
+                finishDelayed();
             }
 
-        }  else if (loadedPreferences() && getRegistrationStep() == 1) {
+        } else if (loadedPreferences() && getRegistrationStep() == 1) {
             // TODO: Preguntar al usuario si desea comenzar desde el inicio?
             Intent intent = new Intent(SplashActivity.this, CheckActivity.class);
             startActivity(intent);
-            finish();
-        }else{
+            finishDelayed();
+        } else {
             Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
             startActivity(intent);
-            finish();
+            finishDelayed();
         }
 
     }
@@ -230,9 +229,9 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                     intent.putExtra("activityToGoAfter", activityToGoAfter());
                     intent.putExtra("login", true);
                     startActivity(intent);
-                    finish();
+                    finishDelayed();
 
-                }else{
+                } else {
                     AlertDialog.Builder builder2 = new AlertDialog.Builder(SplashActivity.this);
 
                     builder2.setMessage("Su dispositivo no cuenta con autenticación biométrica o no esta configurada, ¿desea crear una clave de acceso?.")
@@ -242,7 +241,7 @@ public class SplashActivity extends CustomSplashActivityAnimated {
                         Intent intent = new Intent(SplashActivity.this, ProtectActivity.class);
                         intent.putExtra("activityToGoAfter", activityToGoAfter());
                         startActivity(intent);
-                        finish();
+                        finishDelayed();
                     });
                     builder2.setNegativeButton("No", (dialog, id) -> {
                         // User clicked No button
@@ -286,5 +285,14 @@ public class SplashActivity extends CustomSplashActivityAnimated {
     private int getRegistrationStep() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
         return pref.getInt("registrationStep", 0);
+    }
+
+    public void finishDelayed() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 300);
     }
 }
