@@ -287,13 +287,4 @@ public class SplashActivity extends CustomSplashActivityAnimated {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(GlobalPrefs.PREFS_FILE_NAME, MODE_PRIVATE);
         return pref.getInt("registrationStep", 0);
     }
-
-    public void finishDelayed() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        }, 300);
-    }
 }

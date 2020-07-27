@@ -409,7 +409,7 @@
                 app:layout_constraintHorizontal_bias="0.482"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/total_label"
-                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintVertical_bias="0.0"
                 tools:ignore="HardcodedText" />
 
             <Button
@@ -426,6 +426,7 @@
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/btnCancel"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btnChange"
                 app:layout_constraintTop_toBottomOf="@+id/total_label"
                 app:layout_constraintVertical_bias="1.0"
                 tools:ignore="HardcodedText" />

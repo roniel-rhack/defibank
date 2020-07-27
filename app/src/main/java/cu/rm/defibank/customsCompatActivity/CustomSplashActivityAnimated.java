@@ -2,6 +2,7 @@ package cu.rm.defibank.customsCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -70,5 +71,14 @@ public class CustomSplashActivityAnimated extends CustomActivity{
     @Override
     protected void animationsClearOut() {
 
+    }
+
+    public void finishDelayed() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }, 300);
     }
 }
