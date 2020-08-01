@@ -222,7 +222,7 @@
 
                 <RadioButton
                     android:id="@+id/banco_bandec"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:drawableTop="@drawable/ic_bandec"
@@ -231,7 +231,7 @@
 
                 <RadioButton
                     android:id="@+id/banco_bpa"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:drawableTop="@drawable/ic_bpa"
@@ -240,7 +240,7 @@
 
                 <RadioButton
                     android:id="@+id/banco_banmet"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:drawableTop="@drawable/ic_bm"
