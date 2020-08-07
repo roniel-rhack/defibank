@@ -36,6 +36,7 @@
         android:layout_height="180dp"
         android:background="@drawable/ic_wavetop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -138,6 +139,7 @@
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="15dp"
                 android:text="Autenticarse"
+                android:backgroundTint="#FF0060C9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputCodeAct"
@@ -153,7 +155,7 @@
                 android:autofillHints="name"
                 android:fontFamily="@font/basic"
                 android:paddingHorizontal="16dp"
-                android:text="Seleccione su Banco y ingrese su código de autenticación del transfermóvil."
+                android:text="Seleccione su banco e ingrese su código de autenticación de transfermóvil."
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"

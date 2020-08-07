@@ -141,6 +141,7 @@
             android:fontFamily="@font/basic"
             android:paddingHorizontal="30dp"
             android:paddingVertical="15dp"
+            android:background="#FF0060C9"
             android:text="Enviar registro"
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"

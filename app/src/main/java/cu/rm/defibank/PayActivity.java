@@ -228,7 +228,7 @@ public class PayActivity extends CustomActivityAnimated {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        Log.d("Error.Response", error.getMessage());
+                        //Log.d("Error.Response", error.getMessage());
                         loading.setVisibility(View.INVISIBLE);
                         errorContainer.setVisibility(View.VISIBLE);
                     }
@@ -556,7 +556,7 @@ public class PayActivity extends CustomActivityAnimated {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         // error
-                        Log.d("Error.Response", error.getMessage());
+                        //Log.d("Error.Response", error.getMessage());
 
                     }
                 }
